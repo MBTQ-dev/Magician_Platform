@@ -1,0 +1,183 @@
+MBTQ Smart Routing & DNS Architecture
+ 🧠
+ Neural Network Flow
+ User Journey → API Endpoints → JSON Generation → Compliance Documents → Business Formation
+ User Journey → API Endpoints → JSON Generation → Compliance Documents → Business Formation
+ 🌐
+ DNS Mapping & Smart Routing
+ Core Subdomains
+ idea.mbtq.dev - Idea Capture & Initial Assessment API
+ validate.mbtq.dev - Community Validation & Trust Scoring API
+ build.mbtq.dev - Document Generation & Business Formation Hub
+ mbtq.dev - Master Platform (SBA & VR Compliant Business Engine)
+ 🔄
+ Smart Routing Logic
+ 1. idea.mbtq.dev - The Ideation Gateway
+ json
+ {
+ {
+ "endpoint": :  "/api/v1/capture"
+ "endpoint"
+ "method"
+ "/api/v1/capture", ,
+ "method": :  "POST"
+ "POST", ,
+ "input": :  { {
+ "user_type"
+ "input"
+ "user_type": :  "job_seeker|entrepreneur|employer"
+ "job_seeker|entrepreneur|employer", ,
+ "deaf_identity_verified"
+ "deaf_identity_verified": :  true
+ true, ,
+ "idea_context": :  "vocational_goal|business_concept|hiring_need"
+ "idea_context"
+ "deafauth_token": :  "authenticated_user_session"
+ "vocational_goal|business_concept|hiring_need", ,
+ "deafauth_token"
+ "authenticated_user_session"
+ }, ,
+ "output"
+ }
+ "output": :  { {
+ "idea_id"
+ "idea_id": :  "uuid"
+ "uuid", ,
+ "feasibility_score"
+ "feasibility_score": :  0
+ "vr_pathway"
+ "next_step"
+ }
+ }
+ }
+ }
+ 0-100-100, ,
+ "vr_pathway": :  "traditional|entrepreneurship|employment"
+ "traditional|entrepreneurship|employment", ,
+ "next_step": :  "validate.mbtq.dev/api/v1/assess/{idea_id}"
+ "validate.mbtq.dev/api/v1/assess/{idea_id}"
+ Smart Routing Rules:
+ Deaf job seekers → VR pathway assessment
+ Deaf entrepreneurs → SBA compliance check
+ Deaf employers → Workforce development routing
+All routes validated through DeafAUTH
+ 2. validate.mbtq.dev - Community Trust Engine
+ 3. build.mbtq.dev - Document Generation Hub
+ json
+ { {
+    "endpoint" "endpoint": :  "/api/v1/assess/{idea_id}" "/api/v1/assess/{idea_id}", ,
+    "method" "method": :  "GET" "GET", ,
+    "fibronrose_validation" "fibronrose_validation": :  { {
+        "community_feedback" "community_feedback": :  "peer_review_score" "peer_review_score", ,
+        "cultural_alignment" "cultural_alignment": :  "deaf_first_principles_check" "deaf_first_principles_check", ,
+        "feasibility_metrics" "feasibility_metrics": :  "market_viability_analysis" "market_viability_analysis", ,
+        "trust_reputation" "trust_reputation": :  "blockchain_anchored_score" "blockchain_anchored_score"
+    } }, ,
+    "output" "output": :  { {
+        "validation_status" "validation_status": :  "approved|needs_revision|community_review" "approved|needs_revision|community_review", ,
+        "proposal_template" "proposal_template": :  "customized_json_structure" "customized_json_structure", ,
+        "compliance_requirements" "compliance_requirements": :  [ ["vr_docs" "vr_docs", ,  "sba_forms" "sba_forms", ,  "ada_accommodations" "ada_accommodations"] ], ,
+        "next_step" "next_step": :  "build.mbtq.dev/api/v1/generate" "build.mbtq.dev/api/v1/generate"
+    } }
+ } }
+ json
+4. mbtq.dev - Master Compliance Platform
+ The Business Formation Engine
+ 🚀
+ Cloud DNS Optimization Strategy
+ Geographic Routing
+ Load Balancing Rules
+ idea.mbtq.dev → Lightweight, fast response (Cloud Run minimal)
+ validate.mbtq.dev → Medium compute (Fibronrose validation engine)
+ build.mbtq.dev → Heavy compute (Document generation, PDF creation)
+ mbtq.dev → Full platform (Multi-region, high availability)
+ API Gateway Configuration
+ { {
+    "endpoint" "endpoint": :  "/api/v1/generate" "/api/v1/generate", ,
+    "method" "method": :  "POST" "POST", ,
+    "input_sources" "input_sources": :  { {
+        "iep_data" "iep_data": :  "individualized_employment_plan" "individualized_employment_plan", ,
+        "proposal_json" "proposal_json": :  "validated_business_concept" "validated_business_concept", ,  
+        "user_profile" "user_profile": :  "deafauth_verified_identity" "deafauth_verified_identity"
+    } }, ,
+    "document_generation" "document_generation": :  { {
+        "vr_proposal" "vr_proposal": :  "state_vr_agency_compliant" "state_vr_agency_compliant", ,
+        "sba_application" "sba_application": :  "business_formation_ready" "business_formation_ready", ,
+        "ada_accommodation" "ada_accommodation": :  "workplace_accessibility_plan" "workplace_accessibility_plan", ,
+        "financial_projections" "financial_projections": :  "automated_business_modeling" "automated_business_modeling"
+    } }, ,
+    "output" "output": :  { {
+        "document_package" "document_package": :  "downloadable_zip" "downloadable_zip", ,
+        "submission_ready" "submission_ready": :  true true, ,
+        "compliance_verified" "compliance_verified": :  true true, ,
+        "next_step" "next_step": :  "mbtq.dev/dashboard/track" "mbtq.dev/dashboard/track"
+    } }
+ } }
+ Primary: us-west1 (California) - Main Deaf community hub Primary: us-west1 (California) - Main Deaf community hub
+ Secondary: us-east1 (Virginia) - Government compliance proximity Secondary: us-east1 (Virginia) - Government compliance proximity
+ Tertiary: us-central1 (Iowa) - Midwest accessibility Tertiary: us-central1 (Iowa) - Midwest accessibility
+ yaml
+🎯
+ User Flow Examples
+ Deaf Job Seeker Flow
+ 1. idea.mbtq.dev → "I want to work in tech accessibility"
+ 2. validate.mbtq.dev → Community validates + suggests VR pathway
+ 3. build.mbtq.dev → Generates IEP + VR proposal + accommodation plan
+ 4. mbtq.dev → Tracks VR application, connects with Deaf-friendly employers
+ Deaf Entrepreneur Flow
+ 1. idea.mbtq.dev → "ASL tutoring platform business"
+ 2. validate.mbtq.dev → Community validates + market analysis
+ 3. build.mbtq.dev → SBA application + business plan + accessibility compliance
+ 4. mbtq.dev → Business formation + ongoing compliance monitoring
+ Deaf Employer Flow
+ 1. idea.mbtq.dev → "Need to hire Deaf software developers"
+ 2. validate.mbtq.dev → Validates inclusive hiring commitment
+ 3. build.mbtq.dev → ADA workplace plan + inclusive job descriptions
+ 4. mbtq.dev → Connects with verified Deaf talent pipeline
+ api_gateway api_gateway: :
+    rate_limiting rate_limiting: :
+        --  endpoint endpoint: :  "idea.mbtq.dev/*" "idea.mbtq.dev/*"
+            limit limit: :  "100/minute/user" "100/minute/user"
+        --  endpoint endpoint: :  "validate.mbtq.dev/*" "validate.mbtq.dev/*"  
+            limit limit: :  "50/minute/user" "50/minute/user"
+        --  endpoint endpoint: :  "build.mbtq.dev/*" "build.mbtq.dev/*"
+            limit limit: :  "10/minute/user" "10/minute/user"  # Document generation is resource intensive # Document generation is resource intensive
+    
+    authentication authentication: :
+        --  all_endpoints all_endpoints: :  "deafauth_required" "deafauth_required"
+        --  build_endpoint build_endpoint: :  "additional_identity_verification" "additional_identity_verification"
+    
+    caching caching: :
+        --  validation_results validation_results: :  "24_hours" "24_hours"
+        --  document_templates document_templates: :  "7_days" "7_days"
+        --  user_profiles user_profiles: :  "1_hour" "1_hour"
+�
+�
+ Technical Implementation
+ Cloud DNS Records
+ idea.mbtq.dev     
+idea.mbtq.dev     
+A    [Cloud Run IP - us-west1]
+ A    [Cloud Run IP - us-west1]
+ validate.mbtq.dev A    [Cloud Run IP - us-west1] 
+validate.mbtq.dev A    [Cloud Run IP - us-west1] 
+build.mbtq.dev    A    [Cloud Run IP - us-central1]
+ mbtq.dev          
+build.mbtq.dev    A    [Cloud Run IP - us-central1]
+ mbtq.dev          
+A    [Load Balancer IP - Multi-region]
+ A    [Load Balancer IP - Multi-region]
+ API Response Optimization
+ Compression: gzip for all JSON responses
+ CDN: CloudFlare for static assets
+ Caching: Redis for frequently accessed validation data
+ Monitoring: Real-time performance tracking per subdomain
+ 💡
+ The Genius of This Architecture
+ Traditional VR Process:
+ Manual paperwork → Months of bureaucracy → High failure rate
+ MBTQ Smart Routing:
+ AI-powered idea capture → Community validation → Automated compliance → Instant business
+ formation
+ This transforms vocational rehabilitation from a barrier into a launching pad, with your MBTQ neural
+ network orchestrating every step of the journey
