@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   BarChart, 
   Calendar, 
-  Card as CardIcon, 
+  CreditCard as CardIcon, 
   Clipboard, 
   Clock, 
   Cog, 
@@ -22,7 +22,7 @@ import {
   HandHelping, 
   Landmark, 
   MessageSquare, 
-  MessageSquareCheck, 
+  Check,
   PersonStanding, 
   Phone, 
   Search, 
@@ -474,7 +474,7 @@ function VRTimelineCard() {
             <div className="flex gap-3">
               <div className="flex flex-col items-center">
                 <div className="bg-purple-100 p-1.5 rounded-full">
-                  <MessageSquareCheck className="h-3.5 w-3.5 text-purple-600" />
+                  <Check className="h-3.5 w-3.5 text-purple-600" />
                 </div>
                 <div className="flex-1 w-px bg-border my-1"></div>
               </div>

@@ -424,7 +424,7 @@ class AIBusinessAnalyticsService {
       // Default response
       answer = "Based on my analysis of your business data, I've identified several key insights: 1) Your customer retention has improved by 7% this quarter, 2) Revenue growth is steady at 12.5% year-over-year, and 3) Operating costs have increased slightly faster than revenue at 14.8%. I recommend focusing on operational efficiency while maintaining your successful customer retention strategies.";
       dataUsed = ['Financial data', 'Customer analytics', 'Operational metrics'];
-      followUp = ['What's driving the increase in operating costs?', 'Which customer retention strategies are most effective?'];
+      followUp = ['What\'s driving the increase in operating costs?', 'Which customer retention strategies are most effective?'];
     }
     
     return {
