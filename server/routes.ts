@@ -25,6 +25,7 @@ import ecosystemRoutes from "./routes/ecosystemRoutes";
 import businessFormationRoutes from "./routes/businessFormationRoutes";
 import startupTeamBuilderRoutes from "./routes/startupTeamBuilderRoutes";
 import profileRoutes from "./routes/profileRoutes";
+import authRoutes from "./routes/authRoutes";
 import { initializeRealtimeTranslation } from "./services/realtimeTranslation";
 
 // Validation error handling
@@ -39,6 +40,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   console.log("WebSocket initialization deferred for better startup performance");
   
   // Register API routes
+  app.use('/api/auth', authRoutes);
   app.use('/api/storage', storageRoutes);
   app.use('/api/pipeline', pipelineRoutes);
   app.use('/api/claude', anthropicRoutes);
