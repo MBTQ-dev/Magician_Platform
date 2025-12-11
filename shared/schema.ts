@@ -386,3 +386,109 @@ export const insertAslDictionaryTermSchema = createInsertSchema(aslDictionaryTer
 
 export type AslDictionaryTerm = typeof aslDictionaryTerms.$inferSelect;
 export type InsertAslDictionaryTerm = z.infer<typeof insertAslDictionaryTermSchema>;
+
+// Fibonrose Reputation System
+export const fibonroseScores = pgTable("fibonrose_scores", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().unique(),
+  totalScore: integer("total_score").notNull().default(0),
+  level: integer("level").notNull().default(1),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertFibonroseScoreSchema = createInsertSchema(fibonroseScores).pick({
+  userId: true,
+  totalScore: true,
+  level: true,
+});
+
+export const fibonroseActivities = pgTable("fibonrose_activities", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  action: text("action").notNull(),
+  pointsChange: integer("points_change").notNull(),
+  newTotal: integer("new_total").notNull(),
+  source: text("source").notNull(),
+  details: json("details"),
+  timestamp: timestamp("timestamp").defaultNow(),
+});
+
+export const insertFibonroseActivitySchema = createInsertSchema(fibonroseActivities).pick({
+  userId: true,
+  action: true,
+  pointsChange: true,
+  newTotal: true,
+  source: true,
+  details: true,
+});
+
+export const fibonroseBadges = pgTable("fibonrose_badges", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  badgeId: text("badge_id").notNull(),
+  earnedAt: timestamp("earned_at").defaultNow(),
+});
+
+export const insertFibonroseBadgeSchema = createInsertSchema(fibonroseBadges).pick({
+  userId: true,
+  badgeId: true,
+});
+
+// Magician Actions Log
+export const magicianActions = pgTable("magician_actions", {
+  id: serial("id").primaryKey(),
+  magicianId: text("magician_id").notNull(),
+  userId: integer("user_id"),
+  actionType: text("action_type").notNull(),
+  action: text("action").notNull(),
+  details: json("details"),
+  success: boolean("success").notNull(),
+  error: text("error"),
+  timestamp: timestamp("timestamp").defaultNow(),
+});
+
+export const insertMagicianActionSchema = createInsertSchema(magicianActions).pick({
+  magicianId: true,
+  userId: true,
+  actionType: true,
+  action: true,
+  details: true,
+  success: true,
+  error: true,
+});
+
+// Workflow Recipes
+export const workflowRecipes = pgTable("workflow_recipes", {
+  id: serial("id").primaryKey(),
+  recipeId: text("recipe_id").notNull().unique(),
+  name: text("name").notNull(),
+  triggerType: text("trigger_type").notNull(),
+  triggerConfig: json("trigger_config").notNull(),
+  actions: json("actions").notNull(),
+  enabled: boolean("enabled").notNull().default(true),
+  createdBy: integer("created_by"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertWorkflowRecipeSchema = createInsertSchema(workflowRecipes).pick({
+  recipeId: true,
+  name: true,
+  triggerType: true,
+  triggerConfig: true,
+  actions: true,
+  enabled: true,
+  createdBy: true,
+});
+
+export type FibonroseScore = typeof fibonroseScores.$inferSelect;
+export type InsertFibonroseScore = z.infer<typeof insertFibonroseScoreSchema>;
+export type FibonroseActivity = typeof fibonroseActivities.$inferSelect;
+export type InsertFibonroseActivity = z.infer<typeof insertFibonroseActivitySchema>;
+export type FibonroseBadge = typeof fibonroseBadges.$inferSelect;
+export type InsertFibonroseBadge = z.infer<typeof insertFibonroseBadgeSchema>;
+export type MagicianAction = typeof magicianActions.$inferSelect;
+export type InsertMagicianAction = z.infer<typeof insertMagicianActionSchema>;
+export type WorkflowRecipe = typeof workflowRecipes.$inferSelect;
+export type InsertWorkflowRecipe = z.infer<typeof insertWorkflowRecipeSchema>;
