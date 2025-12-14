@@ -109,6 +109,13 @@ router.put('/agencies/:id', async (req, res) => {
   try {
     const { id } = req.params;
     
+    if (!db) {
+      return res.status(500).json({
+        success: false,
+        error: "Database connection unavailable",
+      });
+    }
+
     // Validate input using update schema
     const validatedData = updatePartnerAgencySchema.parse(req.body);
     
