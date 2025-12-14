@@ -388,6 +388,7 @@ Compliance reports can be generated through the platform or via GitHub Actions w
 - **Platform Support**: Open an issue on GitHub
 - **Deaf Community**: Join our Discord (ASL-friendly)
 - **Technical Support**: See documentation or contact maintainers
+- **Troubleshooting**: See [REMOVING_CLOUD_RUN_STATUS_CHECK.md](REMOVING_CLOUD_RUN_STATUS_CHECK.md) for resolving stuck GitHub status checks
 
 ## 📝 License
 
