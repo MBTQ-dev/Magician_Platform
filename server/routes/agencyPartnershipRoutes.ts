@@ -43,6 +43,13 @@ router.get('/agencies/:id', async (req, res) => {
   try {
     const { id } = req.params;
     
+    if (!db) {
+      return res.status(500).json({
+        success: false,
+        error: "Database connection unavailable",
+      });
+    }
+
     const agency = await db.select()
       .from(partnerAgencies)
       .where(eq(partnerAgencies.id, parseInt(id)))
