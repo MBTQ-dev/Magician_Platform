@@ -53,12 +53,12 @@ run_test "node_modules exists or can install" "test -d node_modules || npm insta
 
 # 5. TypeScript check
 echo -n "Testing: TypeScript type checking... "
-if npm run check 2>&1 | grep -q "error"; then
-    echo -e "${RED}✗ FAIL${NC}"
-    TESTS_FAILED=$((TESTS_FAILED + 1))
-else
+if npm run check > /dev/null 2>&1; then
     echo -e "${GREEN}✓ PASS${NC}"
     TESTS_PASSED=$((TESTS_PASSED + 1))
+else
+    echo -e "${RED}✗ FAIL${NC}"
+    TESTS_FAILED=$((TESTS_FAILED + 1))
 fi
 TESTS_RUN=$((TESTS_RUN + 1))
 
