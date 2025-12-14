@@ -44,20 +44,27 @@ The standalone `api-server-notion.js` and related files have been archived. The 
    - Create optimized Dockerfile for `server/index.ts`
    - Implement multi-stage build for smaller image size
    - Configure memory limits and performance optimizations
+   - Note: The build script in package.json creates the dist/ directory
 
 ```Dockerfile
 # Example Dockerfile for optimized unified server
+# This assumes package.json contains:
+# "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist"
+# "start": "NODE_ENV=production node dist/index.js"
+
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
 COPY . .
+# This creates client/dist (frontend) and dist/index.js (server)
 RUN npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/client/dist ./client/dist
 ENV NODE_ENV=production
 ENV PORT=8080
 CMD ["node", "dist/index.js"]
