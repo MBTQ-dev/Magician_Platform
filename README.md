@@ -11,8 +11,11 @@ A comprehensive business formation platform for deaf entrepreneurs, providing to
 - **Document Management**: Storage and organization for business documents
 - **Self-Employment Service Modules**: Comprehensive pricing tools
 - **VR Counselor Integration**: Connect with Vocational Rehabilitation specialists
+- **Agency Partnership Program**: Partner with LGBTQIA and disability service agencies worldwide
+- **Workforce Development**: Job training and placement with inclusive employers
 - **SBA Resource Library**: Access to Small Business Administration resources
 - **AI-Powered Tools**: Tools for business ideation and planning
+- **PinkSync ASL Services**: Professional ASL interpretation and communication support
 
 ## 🔧 Technologies
 
