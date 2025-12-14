@@ -37,12 +37,37 @@ migrations/*
 !.vscode/settings.json
 !.vscode/launch.json
 .idea/
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+*.swp
+*.swo
+*.swn
 *.sw?
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
 
 # Temporary files
 server/public
@@ -66,3 +91,35 @@ uploads/*
 # Deno cache and lock files
 deno-app/.deno/
 deno-app/deno.lock
+*.lock
+.deno/
+
+# Deno generated files
+deno-app/_fresh/
+_fresh/
+
+# Fresh build outputs
+deno-app/static/gen/
+static/gen/
+
+# Deno test coverage
+cov/
+cov_profile/
+
+# Logs
+*.log
+logs/
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
