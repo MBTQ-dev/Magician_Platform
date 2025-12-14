@@ -7,6 +7,7 @@
 
 import { Router } from 'express';
 import type { Request, Response } from 'express';
+import { MAGICIAN_SERVICES } from '../config/magicians';
 
 const router = Router();
 
@@ -42,8 +43,9 @@ interface SystemHealth {
     total: number;
     percentage: number;
   };
-  cpu: {
-    usage: number;
+  process: {
+    uptime: number;
+    pid: number;
   };
 }
 
@@ -72,7 +74,7 @@ router.get('/', async (req: Request, res: Response) => {
     // Determine overall status
     const allServicesHealthy = 
       healthStatus.services.database.status === 'up' &&
-      healthStatus.services.magicians.every(m => m.status === 'up') &&
+      healthStatus.services.magicians.every(m => m.status === 'up' || m.status === 'degraded') &&
       healthStatus.services.storage.status === 'up';
 
     if (!allServicesHealthy) {
@@ -166,24 +168,20 @@ async function checkDatabaseHealth(): Promise<ServiceHealth> {
 
 /**
  * Check all 8 Magician services health
+ * 
+ * Note: Currently returns 'degraded' status for all Magicians as actual health checks
+ * require the Magician services to be running and accessible. In production, this
+ * should make actual HTTP requests to each Magician's health endpoint.
  */
 async function checkMagiciansHealth(): Promise<MagicianHealth[]> {
-  const magicians = [
-    { id: 'gatekeeper_magician', name: 'Gatekeeper Magician', capabilities: 6 },
-    { id: 'reputation_tracker_magician', name: 'Reputation Tracker', capabilities: 6 },
-    { id: 'workflow_automator_magician', name: 'Workflow Automator', capabilities: 7 },
-    { id: 'community_concierge_magician', name: 'Community Concierge', capabilities: 6 },
-    { id: 'business_magician', name: 'Business Magician', capabilities: 8 },
-    { id: 'developer_magician', name: 'Developer Magician', capabilities: 8 },
-    { id: 'job_magician', name: 'Job Magician', capabilities: 8 },
-    { id: 'creative_magician', name: 'Creative Magician', capabilities: 8 },
-  ];
-
-  return magicians.map(magician => ({
+  return MAGICIAN_SERVICES.map(magician => ({
     name: magician.name,
-    status: 'up' as const,
+    // Return 'degraded' until we implement actual health checks
+    // In production, this should check each Magician service's availability
+    status: 'degraded' as const,
     capabilities: magician.capabilities,
     lastCheck: new Date().toISOString(),
+    message: 'Health check not implemented - assuming available',
   }));
 }
 
@@ -233,8 +231,9 @@ function getSystemHealth(): SystemHealth {
       total: Math.round(totalMemory / 1024 / 1024), // MB
       percentage: Math.round(memoryPercentage),
     },
-    cpu: {
-      usage: 0, // Would need additional monitoring for accurate CPU usage
+    process: {
+      uptime: Math.round(process.uptime()), // seconds
+      pid: process.pid,
     },
   };
 }
