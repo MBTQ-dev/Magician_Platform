@@ -665,3 +665,281 @@ button:focus {
         display: none;
     }
 }
+
+/* Integration Guide Specific Styles */
+
+.integration-steps {
+    max-width: 800px;
+    margin: 3rem auto;
+}
+
+.integration-step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
+}
+
+.step-badge {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.integration-step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.integration-step pre {
+    background: var(--bg-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.method-card {
+    background: var(--bg-white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid var(--primary-color);
+}
+
+.method-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.method-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.method-card h4 {
+    font-size: 1.125rem;
+    margin: 1.5rem 0 0.75rem;
+    color: var(--text-primary);
+}
+
+.method-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.method-card pre {
+    background: var(--text-primary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.method-card code {
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #E5E7EB;
+    line-height: 1.6;
+}
+
+/* API Endpoints */
+
+.api-sections {
+    margin-top: 3rem;
+}
+
+.api-section {
+    background: var(--bg-white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+}
+
+.api-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.api-endpoints {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.api-endpoint {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 0.5rem;
+    transition: var(--transition);
+}
+
+.api-endpoint:hover {
+    background: var(--bg-white);
+    box-shadow: var(--shadow-sm);
+}
+
+.api-method {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    min-width: 60px;
+    text-align: center;
+}
+
+.api-method.get {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--secondary-color);
+}
+
+.api-method.post {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3B82F6;
+}
+
+.api-method.put {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent-color);
+}
+
+.api-method.delete {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.api-path {
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    flex: 1;
+}
+
+.api-desc {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Deployment Options */
+
+.deployment-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.deployment-card {
+    background: var(--bg-white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--primary-color);
+}
+
+.deployment-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.deployment-card pre {
+    background: var(--text-primary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.deployment-card code {
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #E5E7EB;
+}
+
+.deployment-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Support Cards */
+
+.support-card {
+    background: var(--bg-white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.support-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.support-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.support-card li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.support-card li:last-child {
+    border-bottom: none;
+}
+
+.support-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.support-card a:hover {
+    color: var(--primary-dark);
+}
+
+/* Responsive Design for Integration Guide */
+
+@media (max-width: 768px) {
+    .integration-step {
+        flex-direction: column;
+    }
+    
+    .api-endpoint {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .api-path {
+        word-break: break-all;
+    }
+    
+    .deployment-options {
+        grid-template-columns: 1fr;
+    }
+}

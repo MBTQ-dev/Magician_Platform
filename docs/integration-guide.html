@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Integration Guide - How to integrate the Magician Platform into your project">
+    <title>Integration Guide - Magician Platform</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🎩 Magician Platform</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="integration-guide.html" class="active">Integration Guide</a></li>
+                <li><a href="compliance-dashboard.html">Dashboard Demo</a></li>
+                <li><a href="https://github.com/MBTQ-dev/Magician_Platform" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Integration Guide</h1>
+                <p class="hero-subtitle">Step-by-step instructions for integrating the Magician Platform into your project</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Quick Start</h2>
+            
+            <div class="integration-steps">
+                <div class="integration-step">
+                    <div class="step-badge">1</div>
+                    <h3>Clone the Repository</h3>
+                    <pre><code>git clone https://github.com/MBTQ-dev/Magician_Platform.git
+cd Magician_Platform</code></pre>
+                </div>
+                
+                <div class="integration-step">
+                    <div class="step-badge">2</div>
+                    <h3>Install Dependencies</h3>
+                    <pre><code>npm install --legacy-peer-deps</code></pre>
+                </div>
+                
+                <div class="integration-step">
+                    <div class="step-badge">3</div>
+                    <h3>Configure Environment</h3>
+                    <pre><code>cp .env.example .env
+# Edit .env with your configuration
+DATABASE_URL=postgresql://...
+JWT_SECRET=your-secret-here</code></pre>
+                </div>
+                
+                <div class="integration-step">
+                    <div class="step-badge">4</div>
+                    <h3>Setup Database</h3>
+                    <pre><code>npm run db:push</code></pre>
+                </div>
+                
+                <div class="integration-step">
+                    <div class="step-badge">5</div>
+                    <h3>Start Development Server</h3>
+                    <pre><code>npm run dev
+# Application available at http://localhost:5000</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Methods -->
+    <section id="integration-methods" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Integration Methods</h2>
+            <p class="section-description">Choose the integration method that best fits your needs</p>
+            
+            <div class="grid-2">
+                <!-- REST API Integration -->
+                <div class="method-card">
+                    <div class="method-icon">🌐</div>
+                    <h3>REST API Integration</h3>
+                    <p>Use our API endpoints to integrate compliance tracking into your existing application.</p>
+                    
+                    <h4>Authentication</h4>
+                    <pre><code>// Login to get JWT token
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    email: 'user@example.com',
+    password: 'password'
+  })
+});
+
+const { token } = await response.json();
+
+// Use token for authenticated requests
+const data = await fetch('/api/vr/enrollment', {
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+});</code></pre>
+
+                    <h4>Create VR Enrollment</h4>
+                    <pre><code>POST /api/vr/enrollment
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "userId": "user-123",
+  "vrAgency": "State VR Agency",
+  "vrCounselor": "Jane Smith",
+  "vrCounselorEmail": "jane@vr.gov",
+  "programType": "self_employment",
+  "currentPhase": "assessment",
+  "status": "active"
+}</code></pre>
+                    
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/API_ROUTES.md" class="link-arrow">View Full API Documentation →</a>
+                </div>
+
+                <!-- Schema Import -->
+                <div class="method-card">
+                    <div class="method-icon">📦</div>
+                    <h3>Database Schema Import</h3>
+                    <p>Copy our battle-tested schemas into your own Drizzle ORM project.</p>
+                    
+                    <h4>Import Schemas</h4>
+                    <pre><code>// From shared/schema.ts
+import { 
+  vrEnrollment,
+  vrServiceRecords,
+  vrMilestones,
+  workforceProgramEnrollment,
+  employmentOutcomes
+} from './magician-platform/shared/schema';
+
+// Use with your Drizzle instance
+import { db } from './your-db';
+
+// Create VR enrollment
+const enrollment = await db
+  .insert(vrEnrollment)
+  .values({
+    userId: user.id,
+    vrAgency: 'State VR',
+    programType: 'job_placement'
+  })
+  .returning();</code></pre>
+
+                    <h4>Schema Validation</h4>
+                    <pre><code>import { insertVREnrollmentSchema } from './schema';
+
+// Validate input with Zod
+const validatedData = insertVREnrollmentSchema.parse({
+  vrAgency: 'State VR Agency',
+  programType: 'self_employment',
+  // ... other fields
+});</code></pre>
+                    
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/shared/schema.ts" class="link-arrow">View Schema Definitions →</a>
+                </div>
+
+                <!-- Webhook Integration -->
+                <div class="method-card">
+                    <div class="method-icon">🔔</div>
+                    <h3>Webhook Integration</h3>
+                    <p>Subscribe to compliance events and receive real-time notifications.</p>
+                    
+                    <h4>Register Webhook</h4>
+                    <pre><code>POST /api/webhooks/register
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "url": "https://your-app.com/webhooks/compliance",
+  "events": [
+    "vr.milestone.completed",
+    "workforce.outcome.recorded",
+    "vr.service.created"
+  ],
+  "secret": "your-webhook-secret"
+}</code></pre>
+
+                    <h4>Handle Webhook Events</h4>
+                    <pre><code>// In your application
+app.post('/webhooks/compliance', (req, res) => {
+  // Verify signature
+  const signature = req.headers['x-webhook-signature'];
+  const isValid = verifySignature(
+    req.body, 
+    signature, 
+    webhookSecret
+  );
+  
+  if (!isValid) {
+    return res.status(401).send('Invalid signature');
+  }
+  
+  // Process event
+  const { event, data } = req.body;
+  
+  switch(event) {
+    case 'vr.milestone.completed':
+      handleMilestoneCompleted(data);
+      break;
+    case 'workforce.outcome.recorded':
+      handleOutcomeRecorded(data);
+      break;
+  }
+  
+  res.status(200).send('OK');
+});</code></pre>
+                    
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/COMPLIANCE_GUIDE.md#webhook-integration" class="link-arrow">View Webhook Documentation →</a>
+                </div>
+
+                <!-- GitHub Actions -->
+                <div class="method-card">
+                    <div class="method-icon">⚙️</div>
+                    <h3>GitHub Actions Workflows</h3>
+                    <p>Use automated compliance checks in your CI/CD pipeline.</p>
+                    
+                    <h4>Add Workflow File</h4>
+                    <pre><code># .github/workflows/compliance.yml
+name: Compliance Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  vr-compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: VR Compliance Check
+        run: |
+          npm install
+          npm run validate:vr
+          
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Accessibility Audit
+        run: |
+          npm install
+          npm run test:accessibility</code></pre>
+                    
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/tree/main/.github/workflows" class="link-arrow">View Example Workflows →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Endpoints -->
+    <section id="api" class="section">
+        <div class="container">
+            <h2 class="section-title">API Endpoints Reference</h2>
+            
+            <div class="api-sections">
+                <!-- VR Endpoints -->
+                <div class="api-section">
+                    <h3>VR Compliance Endpoints</h3>
+                    <div class="api-endpoints">
+                        <div class="api-endpoint">
+                            <div class="api-method post">POST</div>
+                            <div class="api-path">/api/vr/enrollment</div>
+                            <div class="api-desc">Create VR enrollment</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method get">GET</div>
+                            <div class="api-path">/api/vr/enrollment/:id</div>
+                            <div class="api-desc">Get enrollment details</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method put">PUT</div>
+                            <div class="api-path">/api/vr/enrollment/:id</div>
+                            <div class="api-desc">Update enrollment</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method post">POST</div>
+                            <div class="api-path">/api/vr/services</div>
+                            <div class="api-desc">Record VR service</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method get">GET</div>
+                            <div class="api-path">/api/vr/services/:enrollmentId</div>
+                            <div class="api-desc">List all services for enrollment</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method post">POST</div>
+                            <div class="api-path">/api/vr/milestones</div>
+                            <div class="api-desc">Create milestone</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method get">GET</div>
+                            <div class="api-path">/api/vr/milestones/:enrollmentId</div>
+                            <div class="api-desc">List milestones</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workforce Endpoints -->
+                <div class="api-section">
+                    <h3>Workforce Development Endpoints</h3>
+                    <div class="api-endpoints">
+                        <div class="api-endpoint">
+                            <div class="api-method post">POST</div>
+                            <div class="api-path">/api/workforce/enrollment</div>
+                            <div class="api-desc">Enroll in workforce program</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method get">GET</div>
+                            <div class="api-path">/api/workforce/enrollment/:id</div>
+                            <div class="api-desc">Get enrollment details</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method post">POST</div>
+                            <div class="api-path">/api/workforce/outcomes</div>
+                            <div class="api-desc">Record employment outcome</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method get">GET</div>
+                            <div class="api-path">/api/workforce/outcomes/:userId</div>
+                            <div class="api-desc">Get user employment outcomes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Magician Endpoints -->
+                <div class="api-section">
+                    <h3>Magician Services Endpoints</h3>
+                    <div class="api-endpoints">
+                        <div class="api-endpoint">
+                            <div class="api-method get">GET</div>
+                            <div class="api-path">/api/magicians</div>
+                            <div class="api-desc">List all Magician services</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method get">GET</div>
+                            <div class="api-path">/api/magicians/:id</div>
+                            <div class="api-desc">Get Magician details</div>
+                        </div>
+                        <div class="api-endpoint">
+                            <div class="api-method post">POST</div>
+                            <div class="api-path">/api/magicians/:id/execute</div>
+                            <div class="api-desc">Execute Magician action</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deployment Guide -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Deployment Options</h2>
+            
+            <div class="deployment-options">
+                <div class="deployment-card">
+                    <h3>🚀 Vercel (Recommended)</h3>
+                    <pre><code>npm install -g vercel
+vercel login
+vercel deploy --prod</code></pre>
+                    <p>Serverless deployment with automatic HTTPS and global CDN.</p>
+                </div>
+                
+                <div class="deployment-card">
+                    <h3>🐳 Docker</h3>
+                    <pre><code>docker build -t magician-platform .
+docker run -p 5000:5000 \
+  --env-file .env \
+  magician-platform</code></pre>
+                    <p>Containerized deployment for any environment.</p>
+                </div>
+                
+                <div class="deployment-card">
+                    <h3>☁️ Google Cloud Run</h3>
+                    <pre><code>gcloud builds submit --tag gcr.io/PROJECT/magician
+gcloud run deploy --image gcr.io/PROJECT/magician</code></pre>
+                    <p>Scalable serverless containers on Google Cloud.</p>
+                </div>
+                
+                <div class="deployment-card">
+                    <h3>🖥️ Traditional VPS</h3>
+                    <pre><code>npm install --production
+npm run build
+pm2 start npm --name magician -- start</code></pre>
+                    <p>Deploy on any VPS with Node.js support.</p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>Need detailed deployment instructions?</h3>
+                <p>Check out our comprehensive deployment guide</p>
+                <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/DEPLOYMENT_GUIDE.md" class="btn btn-primary">View Deployment Guide</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Need Help?</h2>
+            
+            <div class="grid-3">
+                <div class="support-card">
+                    <h3>📚 Documentation</h3>
+                    <ul>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/COMPLIANCE_GUIDE.md">Compliance Guide</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/DEPLOYMENT_GUIDE.md">Deployment Guide</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/API_ROUTES.md">API Documentation</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/ACCESSIBILITY_STATEMENT.md">Accessibility Statement</a></li>
+                    </ul>
+                </div>
+                
+                <div class="support-card">
+                    <h3>💬 Community Support</h3>
+                    <ul>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/issues">GitHub Issues</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/discussions">GitHub Discussions</a></li>
+                        <li>Discord Community (ASL-friendly)</li>
+                        <li>Email: support@360magicians.com</li>
+                    </ul>
+                </div>
+                
+                <div class="support-card">
+                    <h3>🛡️ Security & Privacy</h3>
+                    <ul>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/SECURITY_POLICY.md">Security Policy</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/security/advisories">Report Vulnerability</a></li>
+                        <li>Email: security@360magicians.com</li>
+                        <li>PGP Key Available</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Magician Platform</h4>
+                    <p>Reusable compliance and workflow system</p>
+                    <p class="footer-tagline">Built with ❤️ for the deaf community</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform">GitHub</a></li>
+                        <li><a href="integration-guide.html">Integration Guide</a></li>
+                        <li><a href="compliance-dashboard.html">Dashboard Demo</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/issues">Report Issues</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/COMPLIANCE_GUIDE.md">Compliance Guide</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/DEPLOYMENT_GUIDE.md">Deployment</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/ACCESSIBILITY_STATEMENT.md">Accessibility</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/SECURITY_POLICY.md">Security</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Compliance</h4>
+                    <ul>
+                        <li>✓ WCAG 2.1 Level AA</li>
+                        <li>✓ 34 CFR Part 361</li>
+                        <li>✓ WIOA Aligned</li>
+                        <li>✓ Section 508</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 360 Magicians Platform. MIT License.</p>
+                <p>
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform">GitHub</a> •
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/LICENSE">License</a> •
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/CONTRIBUTING.md">Contributing</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/integration-guide.js"></script>
+</body>
+</html>
