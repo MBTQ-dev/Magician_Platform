@@ -86,6 +86,9 @@ async function generateCaptions(content: string): Promise<string[]> {
   return ["[Captions will be generated]"];
 }
 
+// Cache ASL video service URL at module level
+const ASL_VIDEO_SERVICE_URL = Deno.env.get("ASL_VIDEO_SERVICE_URL");
+
 /**
  * Generate ASL video for content
  * 
@@ -94,16 +97,14 @@ async function generateCaptions(content: string): Promise<string[]> {
  */
 async function generateASLVideo(content: string): Promise<string | undefined> {
   // Placeholder implementation - integrate with actual service
-  const serviceUrl = Deno.env.get("ASL_VIDEO_SERVICE_URL");
-  
-  if (!serviceUrl) {
+  if (!ASL_VIDEO_SERVICE_URL) {
     console.warn("ASL_VIDEO_SERVICE_URL not configured. ASL video generation disabled.");
     return undefined;
   }
   
   if (content.length > 0) {
     // TODO: Call actual ASL video generation API
-    return `${serviceUrl}/generate/${crypto.randomUUID()}.mp4`;
+    return `${ASL_VIDEO_SERVICE_URL}/generate/${crypto.randomUUID()}.mp4`;
   }
   return undefined;
 }
