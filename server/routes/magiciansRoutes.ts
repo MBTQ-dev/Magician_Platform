@@ -76,7 +76,6 @@ router.get('/:magicianId', async (req, res) => {
       });
     }
 
-    const context = await getMagicianContext(req);
     
     res.json({
       success: true,
