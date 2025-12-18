@@ -1,8 +1,48 @@
-# Archived Legacy Files
+# Archived Files Documentation
 
-This document tracks files that have been archived from the root directory to clean up the project structure.
+This document tracks files that have been archived or removed from the repository to streamline the project structure.
 
-## Archive Date
+## Latest Archive Date
+December 18, 2024
+
+## Repository Streamlining (December 18, 2024)
+
+As part of repository reorganization for the MBTQ Platform structure:
+
+### Removed Files
+- **360-magician-demo.html** - Outdated demo file
+- **360magicians.html** - Outdated magicians demo
+- **gateway** - Incomplete code snippet
+- **polygist** - Incomplete workflow snippet  
+- **reorganize** - Placeholder file
+- **var** - Incomplete code snippet
+
+### Removed Shell Scripts
+- **run-minimal.sh** - Redundant run script
+- **run-super-minimal.sh** - Redundant run script
+- **run-ultra-minimal.sh** - Redundant run script
+- **start-minimal.sh** - Redundant startup script
+- **workflow-run-minimal.sh** - Redundant workflow script
+- **workflow-run-api.sh** - Redundant workflow script
+- **workflow-run-htmx.sh** - Redundant workflow script
+
+### Moved to archived-docs/
+- **AUDIT-SUMMARY.md** - Historical audit information
+- **AUTOMATION-DEMO.md** - Old automation demo
+- **DENO_TRANSITION_SUMMARY.md** - Historical Deno transition notes
+- **FIX-SUMMARY.md** - Historical fix summary
+- **GITHUB-REPOSITORY-TEMPLATE.md** - Old template
+- **IMPLEMENTATION_SUMMARY.md** - Superseded by current docs
+- **PLATFORM-INTEGRATION-SUMMARY.md** - Superseded by MBTQ Platform docs
+- **README-GENERATOR.md** - Old generator docs
+- **REMOVING_CLOUD_RUN_STATUS_CHECK.md** - Specific fix documentation
+- **SUMMARY.md** - Generic summary file
+- **SYSTEM_TRANSFORMATION_SUMMARY.md** - Historical transformation notes
+- **implementation-plan.md** - Old implementation plan
+- **gcp-vercel-deployment.md** - Old deployment guide (superseded by DEPLOYMENT_GUIDE.md)
+- **api-definition.md** - Old API definition (superseded by API_ROUTES.md)
+
+## Previous Archive Date
 December 14, 2025
 
 ## Reason for Archiving

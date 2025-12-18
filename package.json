@@ -1,6 +1,11 @@
 {
-  "name": "rest-express",
+  "name": "vr4deaf-apps",
   "version": "1.0.0",
+  "description": "VR4Deaf Apps - Accessible VR compliance and workforce platform powered by MBTQ Platform (DeafAUTH, PinkSync, Fibonrose)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MBTQ-dev/VR4Deaf-Apps"
+  },
   "type": "module",
   "license": "MIT",
   "scripts": {

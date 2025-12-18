@@ -1,12 +1,22 @@
-# Magician Platform: Reusable Compliance & Workflow System
+# VR4Deaf Apps: Accessible VR Compliance & Workforce Platform
 
-**A modular, production-ready system for VR compliance, accessibility audits, security validation, and workflow automation that can be integrated into any project.**
+**Part of the [MBTQ Platform](https://mbtq-dev.github.io/VR4Deaf-Apps/) ecosystem**
 
-![360 Magicians Platform](https://business.360magicians.com)
+A production-ready application for VR compliance tracking, workforce development, and accessibility-first services for the deaf community.
+
+## 🔷 MBTQ Platform Integration
+
+This application integrates with the **MBTQ Platform** three-pillar architecture:
+
+- **🔐 DeafAUTH** (`/auth`) - Authentication & identity management via Supabase
+- **⚡ PinkSync** (`/sync`) - Real-time communication & accessibility optimization
+- **⭐ Fibonrose** (`/trust`) - Reputation & trust scoring system
+
+[📖 View Platform Documentation](https://mbtq-dev.github.io/VR4Deaf-Apps/)
 
 ## 🌟 Overview
 
-The Magician Platform is a **reusable compliance and workflow system** originally built to support deaf entrepreneurs, job seekers, developers, and creatives. It provides battle-tested, modular components that any organization can integrate to handle:
+VR4Deaf Apps is a **comprehensive platform** built to support deaf entrepreneurs, job seekers, developers, and creatives. It provides modular components that handle:
 
 - **Vocational Rehabilitation (VR) Compliance** - Complete 34 CFR Part 361 tracking and reporting
 - **Workforce Development** - WIOA-aligned program management and outcome tracking
@@ -268,6 +278,7 @@ See [deno-app/README.md](./deno-app/README.md) for detailed documentation.
 ## 📚 Documentation
 
 ### Integration & Deployment
+- **[MBTQ Platform Documentation](https://mbtq-dev.github.io/VR4Deaf-Apps/)** - Platform overview and integration
 - **[Compliance Guide](./COMPLIANCE_GUIDE.md)** - How to integrate VR/workforce compliance into your project
 - **[Deployment Guide](./DEPLOYMENT_GUIDE.md)** - Production deployment instructions and options
 - **[Accessibility Statement](./ACCESSIBILITY_STATEMENT.md)** - WCAG 2.1 AA compliance details
@@ -276,12 +287,11 @@ See [deno-app/README.md](./deno-app/README.md) for detailed documentation.
 ### Technical Documentation
 - **[Compliance Documentation](./COMPLIANCE-DOCUMENTATION.md)** - VR and workforce compliance standards
 - **[Magician Services](./server/services/magicians/README.md)** - Detailed Magician capabilities
-- **[Implementation Summary](./IMPLEMENTATION_SUMMARY.md)** - Technical implementation details
-- **[Platform Integration](./PLATFORM-INTEGRATION-SUMMARY.md)** - Integration guide
 - **[API Routes](./API_ROUTES.md)** - Complete API documentation
 
-### Interactive Demo
-- **[GitHub Pages](https://mbtq-dev.github.io/Magician_Platform/)** - Live compliance dashboard and integration examples
+### Platform & Demos
+- **[MBTQ Platform Home](https://mbtq-dev.github.io/VR4Deaf-Apps/)** - Platform overview and integration guide
+- **[Old Magician Platform Demo](./docs/old-magician-platform-index.html)** - Legacy compliance dashboard
 
 ## 🗄️ Database Schema
 
