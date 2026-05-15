@@ -331,9 +331,8 @@ Optional WebSocket integration for:
 
 ## Support
 
-- **Documentation**: [GitHub Repository](https://github.com/pinksync/360-business-magician)
-- **Issues**: [GitHub Issues](https://github.com/pinksync/360-business-magician/issues)
-- **Email**: team@pinksync.com
+- **Documentation**: [GitHub Repository](https://github.com/pinkycollie/business-magician)
+- **Issues**: [GitHub Issues](https://github.com/MBTQ-dev/Magician-Modules//issues)
 
 ## License
 
