@@ -420,7 +420,14 @@ router.put('/services/:id', async (req, res) => {
     
     // Validate input using update schema
     const validatedData = updateAgencyServiceSchema.parse(req.body);
-    
+
+    if (!db || typeof db.update !== 'function') {
+      return res.status(500).json({
+        success: false,
+        error: 'Database connection is unavailable.'
+      });
+    }
+
     const updatedService = await db.update(agencyServices)
       .set({
         ...validatedData,
