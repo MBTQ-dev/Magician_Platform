@@ -1,0 +1,467 @@
+import { Building2, FileText, Calculator, TrendingUp, Cog, Shield, Users, Zap } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+
+export default function MBTQBusinessPage() {
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge className="mb-4" variant="secondary">
+               Business Magician
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+              Comprehensive Business Solutions for the <span className="text-primary">MBTQ Community</span>
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              From business formation to strategic consulting, we provide end-to-end solutions that seamlessly integrate
+              with your tax planning for holistic financial management.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" asChild>
+                <Link href="/mbtq-business/get-started">Start Your Business Journey</Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/mbtq-business/consultation">Schedule Consultation</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Services */}
+      <section className="py-20">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Services</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Everything you need to start, run, and grow your business with confidence
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="border-primary/20 hover:border-primary/40 transition-colors">
+              <CardHeader>
+                <Building2 className="h-12 w-12 text-primary mb-4" />
+                <CardTitle>Business Formation</CardTitle>
+                <CardDescription>Complete business setup and legal structure</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>LLC, Corporation, Partnership formation</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>EIN and business license acquisition</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Operating agreements and bylaws</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>State and federal compliance setup</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-primary/20 hover:border-primary/40 transition-colors">
+              <CardHeader>
+                <Calculator className="h-12 w-12 text-primary mb-4" />
+                <CardTitle>Bookkeeping & Accounting</CardTitle>
+                <CardDescription>Professional financial management and reporting</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Monthly bookkeeping and reconciliation</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Financial statements and reports</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Cash flow management</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Payroll processing and compliance</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-primary/20 hover:border-primary/40 transition-colors">
+              <CardHeader>
+                <FileText className="h-12 w-12 text-primary mb-4" />
+                <CardTitle>Compliance Management</CardTitle>
+                <CardDescription>Stay compliant with all regulations and requirements</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Annual filings and renewals</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Employment law compliance</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Industry-specific regulations</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Audit preparation and support</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-primary/20 hover:border-primary/40 transition-colors">
+              <CardHeader>
+                <TrendingUp className="h-12 w-12 text-primary mb-4" />
+                <CardTitle>Strategic Consulting</CardTitle>
+                <CardDescription>Expert guidance for business growth and optimization</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Business planning and strategy</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Financial analysis and forecasting</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Market research and competitive analysis</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Growth strategy development</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-primary/20 hover:border-primary/40 transition-colors">
+              <CardHeader>
+                <Cog className="h-12 w-12 text-primary mb-4" />
+                <CardTitle>Technology Implementation</CardTitle>
+                <CardDescription>Modern tools and systems for efficient operations</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Business software setup and integration</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Cloud infrastructure and security</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Automation and workflow optimization</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Digital transformation consulting</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-primary/20 hover:border-primary/40 transition-colors">
+              <CardHeader>
+                <Shield className="h-12 w-12 text-primary mb-4" />
+                <CardTitle>Risk Management</CardTitle>
+                <CardDescription>Protect your business with comprehensive risk strategies</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Business insurance consultation</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Cybersecurity assessment</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Business continuity planning</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span>Legal compliance monitoring</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Packages */}
+      <section className="py-20 bg-muted/30">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Service Packages</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Choose the package that best fits your business needs and growth stage
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="relative">
+              <CardHeader>
+                <CardTitle className="text-2xl">Startup Essentials</CardTitle>
+                <CardDescription>Perfect for new businesses getting started</CardDescription>
+                <div className="text-3xl font-bold text-primary">
+                  $299<span className="text-base font-normal">/month</span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Business formation (LLC/Corp)</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>EIN and basic licenses</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Basic bookkeeping setup</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Monthly financial reports</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Tax planning integration</span>
+                  </li>
+                </ul>
+                <Button className="w-full mt-6" asChild>
+                  <Link href="/mbtq-business/startup">Get Started</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="relative border-primary shadow-lg">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <Badge className="bg-primary text-primary-foreground">Most Popular</Badge>
+              </div>
+              <CardHeader>
+                <CardTitle className="text-2xl">Growth Accelerator</CardTitle>
+                <CardDescription>For established businesses ready to scale</CardDescription>
+                <div className="text-3xl font-bold text-primary">
+                  $599<span className="text-base font-normal">/month</span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Everything in Startup Essentials</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Advanced bookkeeping & payroll</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Strategic business consulting</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Technology implementation</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Compliance management</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Quarterly strategy sessions</span>
+                  </li>
+                </ul>
+                <Button className="w-full mt-6" asChild>
+                  <Link href="/mbtq-business/growth">Choose Growth</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="relative">
+              <CardHeader>
+                <CardTitle className="text-2xl">Enterprise Solutions</CardTitle>
+                <CardDescription>Comprehensive support for large organizations</CardDescription>
+                <div className="text-3xl font-bold text-primary">
+                  Custom<span className="text-base font-normal"> pricing</span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Everything in Growth Accelerator</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Dedicated account manager</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Custom integrations</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Advanced analytics & reporting</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>Priority support</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Zap className="h-4 w-4 text-primary mr-2" />
+                    <span>On-site consulting available</span>
+                  </li>
+                </ul>
+                <Button variant="outline" className="w-full mt-6" asChild>
+                  <Link href="/mbtq-business/enterprise">Contact Sales</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose MBTQ Business */}
+      <section className="py-20">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose MBTQ Business?</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                We understand the unique challenges and opportunities facing MBTQ-owned businesses
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <Users className="h-8 w-8 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Community-Focused Approach</h3>
+                    <p className="text-muted-foreground">
+                      Our team understands the unique challenges and opportunities within the MBTQ community, providing
+                      culturally competent business solutions.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <Shield className="h-8 w-8 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Inclusive Business Practices</h3>
+                    <p className="text-muted-foreground">
+                      We help you build businesses that reflect your values, with inclusive policies, diverse supplier
+                      networks, and community-centered approaches.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <Zap className="h-8 w-8 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Integrated Tax Strategy</h3>
+                    <p className="text-muted-foreground">
+                      Seamless integration with our tax planning platform ensures your business operations are optimized
+                      for maximum tax efficiency from day one.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <TrendingUp className="h-8 w-8 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Growth-Oriented Solutions</h3>
+                    <p className="text-muted-foreground">
+                      Our strategies are designed to scale with your business, from startup to enterprise, ensuring
+                      sustainable growth and long-term success.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <Cog className="h-8 w-8 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Technology-First Approach</h3>
+                    <p className="text-muted-foreground">
+                      Leverage cutting-edge technology and automation to streamline operations, reduce costs, and
+                      improve efficiency across all business functions.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <FileText className="h-8 w-8 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Comprehensive Compliance</h3>
+                    <p className="text-muted-foreground">
+                      Stay ahead of regulatory requirements with our proactive compliance management, reducing risk and
+                      ensuring peace of mind.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-primary text-primary-foreground">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
+            <p className="text-xl mb-8 opacity-90">
+              Join hundreds of MBTQ business owners who trust us with their success. Let's build something amazing
+              together.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" asChild>
+                <Link href="/mbtq-business/get-started">Start Your Journey</Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                asChild
+              >
+                <Link href="/mbtq-business/consultation">Schedule Free Consultation</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}

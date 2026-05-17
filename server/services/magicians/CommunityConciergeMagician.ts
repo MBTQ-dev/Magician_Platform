@@ -13,6 +13,7 @@
 
 import { BaseMagician, MagicianContext } from './BaseMagician';
 import fibonroseService from '../fibonroseService';
+import { DatabaseStorage } from '../../database';
 
 interface FAQItem {
   question: string;
@@ -24,6 +25,7 @@ interface FAQItem {
 
 export class CommunityConciergeMagician extends BaseMagician {
   private faqDatabase: FAQItem[] = [];
+  private db: DatabaseStorage;
 
   constructor() {
     super(
@@ -39,6 +41,7 @@ export class CommunityConciergeMagician extends BaseMagician {
       ]
     );
 
+    this.db = new DatabaseStorage();
     this.initializeFAQ();
   }
 
@@ -276,7 +279,7 @@ export class CommunityConciergeMagician extends BaseMagician {
       }
 
       const userScore = await fibonroseService.getFibonroseScore(context.userId);
-      const { interests = [], experienceLevel = 'beginner' } = params;
+      const { interests = [] } = params;
 
       // In production, this would query mentor database
       const mockMentors = [
@@ -354,11 +357,11 @@ export class CommunityConciergeMagician extends BaseMagician {
   }
 
   /**
-   * Surface relevant opportunities
+   * Surface relevant opportunities based on user profile, interests, and Fibonrose score
    */
   private async surfaceOpportunities(
     context: MagicianContext,
-    params: { category?: string }
+    params: { category?: string; type?: string; limit?: number }
   ): Promise<any> {
     try {
       if (!context.userId) {
@@ -368,44 +371,80 @@ export class CommunityConciergeMagician extends BaseMagician {
         };
       }
 
-      // In production, this would query opportunities database
-      const mockOpportunities = [
-        {
-          id: 1,
-          type: 'gig',
-          title: 'ASL Video Editor Needed',
-          description: 'Edit 10 ASL tutorial videos',
-          budget: '$500',
-          deadline: '2 weeks',
-          requiredFibonrose: 100,
-        },
-        {
-          id: 2,
-          type: 'collaboration',
-          title: 'Looking for Co-Founder',
-          description: 'Building a Deaf-owned startup, need technical co-founder',
-          requiredFibonrose: 200,
-        },
-        {
-          id: 3,
-          type: 'grant',
-          title: 'DAO Community Grant',
-          description: 'Apply for funding for community projects',
-          amount: 'Up to $5,000',
-          requiredFibonrose: 150,
-        },
-      ];
-
-      // Filter by user's Fibonrose level
+      // Get user's Fibonrose score
       const userScore = context.fibonroseScore || 0;
-      const qualifiedOpportunities = mockOpportunities.filter(
-        opp => userScore >= opp.requiredFibonrose
-      );
+
+      // Get user's interests for personalized matching
+      const userInterests = await this.db.getUserInterests(context.userId);
+      
+      // Get user profile to determine target audience
+      const user = await this.db.getUser(context.userId);
+      const targetAudience: string[] = [];
+      if (user?.isDeaf) {
+        targetAudience.push('deaf');
+      }
+      if (user?.preferASL) {
+        targetAudience.push('asl_user');
+      }
+      
+      // Build query parameters based on user profile and interests
+      const queryParams: any = {
+        isActive: true,
+        userFibonroseScore: userScore, // Only show opportunities user qualifies for
+      };
+
+      if (params.category) {
+        queryParams.category = params.category;
+      }
+
+      if (params.type) {
+        queryParams.type = params.type;
+      }
+
+      if (targetAudience.length > 0) {
+        queryParams.targetAudience = targetAudience;
+      }
+
+      // Extract tags from user interests
+      const userTags: string[] = [];
+      if (userInterests.length > 0) {
+        userInterests.forEach(interest => {
+          if (interest.category) {
+            userTags.push(interest.category);
+          }
+          if (interest.subcategories) {
+            userTags.push(...interest.subcategories);
+          }
+        });
+      }
+
+      // Query opportunities from database
+      let allOpportunities = await this.db.getOpportunities(queryParams);
+
+      // Apply personalized ranking based on user interests
+      if (userTags.length > 0 || userInterests.length > 0) {
+        allOpportunities = this.rankOpportunitiesByRelevance(
+          allOpportunities,
+          userInterests,
+          userTags,
+          params.type
+        );
+      }
+
+      // Limit results if specified
+      const limit = params.limit || 10;
+      const qualifiedOpportunities = allOpportunities.slice(0, limit);
 
       this.logAction(
         'opportunities',
         'surface_opportunities',
-        { category: params.category, found: qualifiedOpportunities.length },
+        { 
+          category: params.category, 
+          type: params.type,
+          found: qualifiedOpportunities.length,
+          userScore,
+          hasInterests: userInterests.length > 0
+        },
         true,
         context.userId
       );
@@ -415,8 +454,8 @@ export class CommunityConciergeMagician extends BaseMagician {
         opportunities: qualifiedOpportunities,
         total: qualifiedOpportunities.length,
         message: qualifiedOpportunities.length > 0
-          ? `Found ${qualifiedOpportunities.length} opportunities for you`
-          : 'No opportunities match your profile right now. Keep building your Fibonrose score!',
+          ? `Found ${qualifiedOpportunities.length} personalized opportunities for you`
+          : 'No opportunities match your profile right now. Keep building your Fibonrose score or update your interests!',
       };
     } catch (error) {
       this.logAction(
@@ -433,6 +472,63 @@ export class CommunityConciergeMagician extends BaseMagician {
         error: 'Failed to surface opportunities',
       };
     }
+  }
+
+  /**
+   * Rank opportunities by relevance to user interests and preferences
+   */
+  private rankOpportunitiesByRelevance(
+    opportunities: any[],
+    userInterests: any[],
+    userTags: string[],
+    preferredType?: string
+  ): any[] {
+    return opportunities
+      .map(opp => {
+        let relevanceScore = opp.priority || 0;
+
+        // Boost if opportunity type matches user's looking-for preferences
+        if (preferredType && opp.type === preferredType) {
+          relevanceScore += 50;
+        }
+
+        userInterests.forEach(interest => {
+          // Match on category
+          if (opp.category === interest.category) {
+            relevanceScore += 30;
+          }
+
+          // Match on type preferences (what user is looking for)
+          if (interest.lookingFor && interest.lookingFor.includes(opp.type)) {
+            relevanceScore += 40;
+          }
+
+          // Match on subcategories
+          if (interest.subcategories && opp.tags) {
+            const matchingTags = interest.subcategories.filter((sub: string) =>
+              opp.tags?.includes(sub)
+            );
+            relevanceScore += matchingTags.length * 10;
+          }
+        });
+
+        // Match on user tags
+        if (opp.tags && userTags.length > 0) {
+          const matchingTags = opp.tags.filter((tag: string) => userTags.includes(tag));
+          relevanceScore += matchingTags.length * 5;
+        }
+
+        // Boost newer opportunities slightly
+        const daysOld = Math.floor(
+          (Date.now() - new Date(opp.createdAt).getTime()) / (1000 * 60 * 60 * 24)
+        );
+        if (daysOld < 7) {
+          relevanceScore += 10;
+        }
+
+        return { ...opp, relevanceScore };
+      })
+      .sort((a, b) => b.relevanceScore - a.relevanceScore);
   }
 
   /**

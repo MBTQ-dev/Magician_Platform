@@ -9,11 +9,14 @@ import {
   businesses, type Business, type InsertBusiness,
   vrCounselors, type VRCounselor, type InsertVRCounselor,
   userCounselors, type UserCounselor, type InsertUserCounselor,
-  resources, type Resource, type InsertResource
+  resources, type Resource, type InsertResource,
+  opportunities, type Opportunity, type InsertOpportunity,
+  userInterests, type UserInterest, type InsertUserInterest
 } from "@shared/schema";
 import { db } from "./db";
 import { IStorage } from "./storage";
-import { and, eq, isNull, or, sql } from "drizzle-orm";
+import { and, eq, isNull, or, sql, gte, lte, desc } from "drizzle-orm";
+import { hashPassword } from "./utils/passwordUtils";
 
 export class DatabaseStorage implements IStorage {
   // Users
@@ -28,10 +31,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
+    // Hash the password before storing
+    const hashedPassword = await hashPassword(insertUser.password);
+    
     const [user] = await db
       .insert(users)
       .values({
         ...insertUser,
+        password: hashedPassword,
         isDeaf: insertUser.isDeaf || null,
         preferASL: insertUser.preferASL || null,
         createdAt: new Date()
@@ -384,5 +391,159 @@ export class DatabaseStorage implements IStorage {
     await db
       .delete(resources)
       .where(eq(resources.id, id));
+  }
+
+  // Opportunities
+  async getOpportunities(params?: {
+    type?: string;
+    category?: string;
+    tags?: string[];
+    userFibonroseScore?: number; // User's Fibonrose score - only show opportunities they qualify for
+    targetAudience?: string[];
+    isActive?: boolean;
+  }): Promise<Opportunity[]> {
+    let query = db.select().from(opportunities);
+    
+    const conditions = [];
+    
+    if (params?.type) {
+      conditions.push(eq(opportunities.type, params.type));
+    }
+    
+    if (params?.category) {
+      conditions.push(eq(opportunities.category, params.category));
+    }
+    
+    // Filter opportunities that user qualifies for (requiredFibonrose <= userScore)
+    if (params?.userFibonroseScore !== undefined) {
+      conditions.push(lte(opportunities.requiredFibonrose, params.userFibonroseScore));
+    }
+    
+    if (params?.isActive !== undefined) {
+      conditions.push(eq(opportunities.isActive, params.isActive));
+    }
+    
+    // Check if not expired
+    conditions.push(or(
+      isNull(opportunities.expiresAt),
+      gte(opportunities.expiresAt, new Date())
+    ));
+    
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+    
+    // Order by priority (higher first) and then by creation date
+    const result = await query.orderBy(desc(opportunities.priority), desc(opportunities.createdAt));
+    
+    // Filter by tags and target audience in memory due to Drizzle ORM array filtering limitations
+    // Note: For large datasets, consider implementing database-level array filtering with raw SQL
+    // or adding GIN indexes on array columns (PostgreSQL) for better performance
+    let filteredResult = result;
+    
+    if (params?.tags && params.tags.length > 0) {
+      filteredResult = filteredResult.filter(opp => {
+        if (!opp.tags) return false;
+        return params.tags!.some(tag => opp.tags?.includes(tag));
+      });
+    }
+    
+    if (params?.targetAudience && params.targetAudience.length > 0) {
+      filteredResult = filteredResult.filter(opp => {
+        if (!opp.targetAudience) return true; // If no target audience specified, show to everyone
+        return params.targetAudience!.some(audience => opp.targetAudience?.includes(audience));
+      });
+    }
+    
+    return filteredResult;
+  }
+
+  async getOpportunity(id: number): Promise<Opportunity | undefined> {
+    const [opportunity] = await db.select().from(opportunities).where(eq(opportunities.id, id));
+    return opportunity || undefined;
+  }
+
+  async createOpportunity(opportunity: InsertOpportunity): Promise<Opportunity> {
+    const now = new Date();
+    const [newOpportunity] = await db
+      .insert(opportunities)
+      .values({
+        ...opportunity,
+        createdAt: now,
+        updatedAt: now,
+        category: opportunity.category || null,
+        tags: opportunity.tags || null,
+        targetAudience: opportunity.targetAudience || null,
+        budget: opportunity.budget || null,
+        deadline: opportunity.deadline || null,
+        location: opportunity.location || null,
+        externalUrl: opportunity.externalUrl || null,
+        contactEmail: opportunity.contactEmail || null,
+        contactName: opportunity.contactName || null,
+        postedBy: opportunity.postedBy || null,
+        expiresAt: opportunity.expiresAt || null,
+      })
+      .returning();
+    return newOpportunity;
+  }
+
+  async updateOpportunity(id: number, data: Partial<InsertOpportunity>): Promise<Opportunity> {
+    const [updatedOpportunity] = await db
+      .update(opportunities)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(opportunities.id, id))
+      .returning();
+    return updatedOpportunity;
+  }
+
+  async deleteOpportunity(id: number): Promise<void> {
+    await db
+      .delete(opportunities)
+      .where(eq(opportunities.id, id));
+  }
+
+  // User Interests
+  async getUserInterests(userId: number): Promise<UserInterest[]> {
+    return db
+      .select()
+      .from(userInterests)
+      .where(eq(userInterests.userId, userId));
+  }
+
+  async createUserInterest(interest: InsertUserInterest): Promise<UserInterest> {
+    const now = new Date();
+    const [newInterest] = await db
+      .insert(userInterests)
+      .values({
+        ...interest,
+        createdAt: now,
+        updatedAt: now,
+        subcategories: interest.subcategories || null,
+        skillLevel: interest.skillLevel || null,
+        lookingFor: interest.lookingFor || null,
+      })
+      .returning();
+    return newInterest;
+  }
+
+  async updateUserInterest(id: number, data: Partial<InsertUserInterest>): Promise<UserInterest> {
+    const [updatedInterest] = await db
+      .update(userInterests)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(userInterests.id, id))
+      .returning();
+    return updatedInterest;
+  }
+
+  async deleteUserInterest(id: number): Promise<void> {
+    await db
+      .delete(userInterests)
+      .where(eq(userInterests.id, id));
   }
 }

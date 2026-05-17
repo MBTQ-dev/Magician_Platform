@@ -882,3 +882,77 @@ export type EmploymentOutcome = typeof employmentOutcomes.$inferSelect;
 export type InsertEmploymentOutcome = z.infer<typeof insertEmploymentOutcomeSchema>;
 export type ComplianceAuditTrail = typeof complianceAuditTrail.$inferSelect;
 export type InsertComplianceAuditTrail = z.infer<typeof insertComplianceAuditTrailSchema>;
+
+// ============================================================================
+// Community Opportunities
+// ============================================================================
+
+// Opportunities table for personalized opportunity matching
+export const opportunities = pgTable("opportunities", {
+  id: serial("id").primaryKey(),
+  type: text("type").notNull(), // gig, collaboration, grant, training, event, mentorship
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  category: text("category"), // business, accessibility, technology, community, education
+  tags: text("tags").array(),
+  requiredFibonrose: integer("required_fibonrose").notNull().default(0),
+  targetAudience: text("target_audience").array(), // deaf, hard_of_hearing, asl_user, business_owner, entrepreneur
+  budget: text("budget"),
+  deadline: date("deadline"),
+  location: text("location"), // remote, in_person, hybrid, specific location
+  externalUrl: text("external_url"),
+  contactEmail: text("contact_email"),
+  contactName: text("contact_name"),
+  isActive: boolean("is_active").default(true),
+  priority: integer("priority").default(0), // Higher priority = shown first
+  postedBy: integer("posted_by"), // user id who posted
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  expiresAt: timestamp("expires_at"),
+});
+
+export const insertOpportunitySchema = createInsertSchema(opportunities).pick({
+  type: true,
+  title: true,
+  description: true,
+  category: true,
+  tags: true,
+  requiredFibonrose: true,
+  targetAudience: true,
+  budget: true,
+  deadline: true,
+  location: true,
+  externalUrl: true,
+  contactEmail: true,
+  contactName: true,
+  isActive: true,
+  priority: true,
+  postedBy: true,
+  expiresAt: true,
+});
+
+export type Opportunity = typeof opportunities.$inferSelect;
+export type InsertOpportunity = z.infer<typeof insertOpportunitySchema>;
+
+// User interests for personalized opportunity matching
+export const userInterests = pgTable("user_interests", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  category: text("category").notNull(), // business, accessibility, technology, community, education
+  subcategories: text("subcategories").array(),
+  skillLevel: text("skill_level"), // beginner, intermediate, advanced, expert
+  lookingFor: text("looking_for").array(), // gigs, grants, collaborations, training, events, mentorship
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertUserInterestSchema = createInsertSchema(userInterests).pick({
+  userId: true,
+  category: true,
+  subcategories: true,
+  skillLevel: true,
+  lookingFor: true,
+});
+
+export type UserInterest = typeof userInterests.$inferSelect;
+export type InsertUserInterest = z.infer<typeof insertUserInterestSchema>;

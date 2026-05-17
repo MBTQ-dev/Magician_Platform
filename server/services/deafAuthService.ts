@@ -5,10 +5,11 @@
  * for the MBTQ ecosystem. This is the root of truth for all user permissions.
  */
 
-import { db } from '../database';
-import { users } from '../../../shared/schema';
+import { db } from '../db';
+import { users } from '@shared/schema';
 import { eq } from 'drizzle-orm';
 import jwt from 'jsonwebtoken';
+import { comparePassword } from '../utils/passwordUtils';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 const JWT_EXPIRY = '7d';
@@ -77,7 +78,6 @@ export async function authenticate(
   password: string
 ): Promise<AuthResult> {
   try {
-    // In production, this would use proper password hashing (bcrypt)
     const result = await db
       .select()
       .from(users)
@@ -93,8 +93,9 @@ export async function authenticate(
 
     const user = result[0];
 
-    // TODO: Implement proper password verification with bcrypt
-    if (user.password !== password) {
+    // Use bcrypt to securely compare passwords
+    const isValidPassword = await comparePassword(password, user.password);
+    if (!isValidPassword) {
       return {
         success: false,
         error: 'Invalid credentials',

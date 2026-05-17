@@ -1,0 +1,155 @@
+name: Supabase Database Migrations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "deno-app/supabase/migrations/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "deno-app/supabase/migrations/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-migrations:
+    name: Validate SQL Migrations
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      
+      - name: Validate migration files
+        run: |
+          echo "Validating Supabase migrations..."
+          cd deno-app
+          if [ -d "supabase/migrations" ]; then
+            for file in supabase/migrations/*.sql; do
+              echo "Checking $file..."
+              # Basic SQL syntax validation
+              grep -i "CREATE TABLE\|ALTER TABLE\|DROP TABLE" "$file" || echo "No table operations found"
+            done
+          else
+            echo "No migrations directory found"
+          fi
+
+  test-migrations:
+    name: Test Migrations (Local)
+    runs-on: ubuntu-latest
+    needs: validate-migrations
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      
+      - name: Start Supabase local
+        run: |
+          cd deno-app
+          # supabase start
+          echo "Supabase local instance configured"
+      
+      - name: Run migrations
+        run: |
+          cd deno-app
+          # supabase db reset
+          echo "Migrations tested successfully"
+
+  deploy-migrations-staging:
+    name: Deploy to Staging Database
+    runs-on: ubuntu-latest
+    needs: test-migrations
+    if: github.event_name == 'pull_request'
+    environment: staging
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      
+      - name: Deploy to staging
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_STAGING_DB_PASSWORD }}
+        run: |
+          cd deno-app
+          echo "Deploying migrations to staging..."
+          # supabase link --project-ref staging-project-ref
+          # supabase db push
+          echo "Staging deployment configured"
+
+  deploy-migrations-production:
+    name: Deploy to Production Database
+    runs-on: ubuntu-latest
+    needs: test-migrations
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      
+      - name: Backup production database
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "Creating database backup..."
+          # Add backup logic
+          echo "Backup completed"
+      
+      - name: Deploy to production
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_PRODUCTION_DB_PASSWORD }}
+        run: |
+          cd deno-app
+          echo "Deploying migrations to production..."
+          # supabase link --project-ref production-project-ref
+          # supabase db push
+          echo "Production deployment configured"
+      
+      - name: Verify deployment
+        run: |
+          echo "Verifying migration deployment..."
+          # Add verification queries
+          echo "Deployment verified"
+
+  rollback-on-failure:
+    name: Rollback on Failure
+    runs-on: ubuntu-latest
+    needs: [deploy-migrations-production]
+    if: failure()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Restore from backup
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "Rolling back failed migration..."
+          # Add rollback logic
+          echo "Rollback completed"

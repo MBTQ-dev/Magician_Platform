@@ -21,7 +21,7 @@ import {
   Loader2, 
   LucideIcon, 
   PieChart, 
-  Refresh, 
+  RotateCw, 
   Search, 
   Share2, 
   Sparkles, 
@@ -266,7 +266,7 @@ export default function AIBusinessAnalytics() {
             {isAnalyzing ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-              <Refresh className="h-4 w-4" />
+              <RotateCw className="h-4 w-4" />
             )}
             Refresh Analysis
           </Button>

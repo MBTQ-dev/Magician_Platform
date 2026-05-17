@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   BarChart, 
   Calendar, 
-  Card as CardIcon, 
+  CreditCard, 
   Clipboard, 
   Clock, 
   Cog, 
@@ -22,7 +22,7 @@ import {
   HandHelping, 
   Landmark, 
   MessageSquare, 
-  MessageSquareCheck, 
+  CheckCircle2, 
   PersonStanding, 
   Phone, 
   Search, 
@@ -78,7 +78,7 @@ export default function VR4DeafDashboard() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList className="grid md:w-full md:grid-cols-4">
           <TabsTrigger value="overview" className="gap-2">
-            <CardIcon className="h-4 w-4" />
+            <CreditCard className="h-4 w-4" />
             Overview
           </TabsTrigger>
           <TabsTrigger value="documents" className="gap-2">
@@ -147,7 +147,7 @@ function VRStatusOverviewCard() {
           </div>
           <div className="flex items-center gap-2">
             <div className="bg-green-100 p-1.5 rounded">
-              <CardIcon className="h-3.5 w-3.5 text-green-600" />
+              <CreditCard className="h-3.5 w-3.5 text-green-600" />
             </div>
             <div className="grid gap-0.5">
               <p className="text-sm font-medium">Business Plan Funding</p>
@@ -362,7 +362,7 @@ function VRApplicationStatusCard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="bg-gray-100 p-1.5 rounded-full">
-                  <CardIcon className="h-4 w-4 text-gray-600" />
+                  <CreditCard className="h-4 w-4 text-gray-600" />
                 </div>
                 <span className="font-medium">Business Launch Support</span>
               </div>
@@ -474,7 +474,7 @@ function VRTimelineCard() {
             <div className="flex gap-3">
               <div className="flex flex-col items-center">
                 <div className="bg-purple-100 p-1.5 rounded-full">
-                  <MessageSquareCheck className="h-3.5 w-3.5 text-purple-600" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-purple-600" />
                 </div>
                 <div className="flex-1 w-px bg-border my-1"></div>
               </div>
@@ -564,7 +564,7 @@ function VRTimelineCard() {
             <div className="flex gap-3">
               <div className="flex flex-col items-center">
                 <div className="bg-green-100 p-1.5 rounded-full">
-                  <CardIcon className="h-3.5 w-3.5 text-green-600" />
+                  <CreditCard className="h-3.5 w-3.5 text-green-600" />
                 </div>
               </div>
               <div>
@@ -830,7 +830,7 @@ function VRServicesTab() {
           title="Equipment Funding"
           description="Financial assistance for business equipment and technology"
           status="active"
-          icon={<CardIcon className="h-5 w-5 text-red-600" />}
+          icon={<CreditCard className="h-5 w-5 text-red-600" />}
           isPinkSyncEnabled={false}
         />
         <ServiceCard 

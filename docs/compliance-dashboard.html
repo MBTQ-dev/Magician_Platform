@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Compliance Dashboard Demo - Magician Platform">
+    <title>Compliance Dashboard - Magician Platform</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🎩 Magician Platform</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="integration-guide.html">Integration Guide</a></li>
+                <li><a href="compliance-dashboard.html" class="active">Dashboard Demo</a></li>
+                <li><a href="https://github.com/MBTQ-dev/Magician_Platform" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <h1>Compliance Dashboard Demo</h1>
+            <p>Interactive visualization of the Magician Platform's compliance monitoring system</p>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalEnrollments">247</div>
+                    <div class="stat-label">Total Enrollments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value compliance-green" id="compliantServices">98.5%</div>
+                    <div class="stat-label">Services Compliant</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value compliance-blue" id="activeMilestones">1,234</div>
+                    <div class="stat-label">Active Milestones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value compliance-purple" id="employmentOutcomes">89.2%</div>
+                    <div class="stat-label">90-Day Retention</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifecycle Stages Dashboard -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Compliance Lifecycle Stages</h2>
+            <p class="section-description">Track participants through the complete compliance journey</p>
+            
+            <div class="lifecycle-dashboard">
+                <!-- Idea Stage -->
+                <div class="lifecycle-card" data-stage="idea">
+                    <div class="lifecycle-header">
+                        <div class="stage-icon-large">💡</div>
+                        <h3>Idea</h3>
+                        <div class="stage-count">64 Active</div>
+                    </div>
+                    <div class="lifecycle-content">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <div class="lifecycle-metrics">
+                            <div class="metric">
+                                <span class="metric-label">VR Enrollments</span>
+                                <span class="metric-value">64</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">IPE Approved</span>
+                                <span class="metric-value">48</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">In Assessment</span>
+                                <span class="metric-value">16</span>
+                            </div>
+                        </div>
+                        <div class="compliance-status">
+                            <span class="status-badge status-success">✓ Compliant</span>
+                            <span class="regulation-ref">34 CFR 361.45</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Stage -->
+                <div class="lifecycle-card" data-stage="build">
+                    <div class="lifecycle-header">
+                        <div class="stage-icon-large">🏗️</div>
+                        <h3>Build</h3>
+                        <div class="stage-count">89 Active</div>
+                    </div>
+                    <div class="lifecycle-content">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 82%"></div>
+                        </div>
+                        <div class="lifecycle-metrics">
+                            <div class="metric">
+                                <span class="metric-label">In Training</span>
+                                <span class="metric-value">89</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Services Provided</span>
+                                <span class="metric-value">456</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Milestones Met</span>
+                                <span class="metric-value">234</span>
+                            </div>
+                        </div>
+                        <div class="compliance-status">
+                            <span class="status-badge status-success">✓ Compliant</span>
+                            <span class="regulation-ref">34 CFR 361.48</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grow Stage -->
+                <div class="lifecycle-card" data-stage="grow">
+                    <div class="lifecycle-header">
+                        <div class="stage-icon-large">📈</div>
+                        <h3>Grow</h3>
+                        <div class="stage-count">52 Active</div>
+                    </div>
+                    <div class="lifecycle-content">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 88%"></div>
+                        </div>
+                        <div class="lifecycle-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Job Placements</span>
+                                <span class="metric-value">38</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Self-Employment</span>
+                                <span class="metric-value">14</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Avg. Wage/Hr</span>
+                                <span class="metric-value">$18.50</span>
+                            </div>
+                        </div>
+                        <div class="compliance-status">
+                            <span class="status-badge status-success">✓ Compliant</span>
+                            <span class="regulation-ref">34 CFR 361.5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Managed Stage -->
+                <div class="lifecycle-card" data-stage="managed">
+                    <div class="lifecycle-header">
+                        <div class="stage-icon-large">✅</div>
+                        <h3>Managed</h3>
+                        <div class="stage-count">42 Active</div>
+                    </div>
+                    <div class="lifecycle-content">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                        <div class="lifecycle-metrics">
+                            <div class="metric">
+                                <span class="metric-label">90-Day Retention</span>
+                                <span class="metric-value">38/42</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">180-Day Retention</span>
+                                <span class="metric-value">35/38</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Success Rate</span>
+                                <span class="metric-value">92%</span>
+                            </div>
+                        </div>
+                        <div class="compliance-status">
+                            <span class="status-badge status-success">✓ Compliant</span>
+                            <span class="regulation-ref">34 CFR 361.56</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compliance Checks Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Real-Time Compliance Checks</h2>
+            
+            <div class="compliance-grid">
+                <div class="compliance-check">
+                    <div class="check-header">
+                        <span class="check-icon">✓</span>
+                        <h3>VR Compliance</h3>
+                        <span class="check-status status-pass">Passing</span>
+                    </div>
+                    <ul class="check-list">
+                        <li class="check-pass">✓ All enrollments have IPE documentation</li>
+                        <li class="check-pass">✓ Service records include regulation references</li>
+                        <li class="check-pass">✓ Milestones tracked with verification</li>
+                        <li class="check-pass">✓ 90-day outcomes documented</li>
+                    </ul>
+                    <div class="check-footer">
+                        Last checked: <span id="vrCheckTime">2 minutes ago</span>
+                    </div>
+                </div>
+
+                <div class="compliance-check">
+                    <div class="check-header">
+                        <span class="check-icon">✓</span>
+                        <h3>Accessibility (WCAG 2.1 AA)</h3>
+                        <span class="check-status status-pass">Passing</span>
+                    </div>
+                    <ul class="check-list">
+                        <li class="check-pass">✓ Keyboard navigation functional</li>
+                        <li class="check-pass">✓ Color contrast ratios compliant</li>
+                        <li class="check-pass">✓ Screen reader compatible</li>
+                        <li class="check-pass">✓ ASL video content available</li>
+                    </ul>
+                    <div class="check-footer">
+                        Last checked: <span id="a11yCheckTime">5 minutes ago</span>
+                    </div>
+                </div>
+
+                <div class="compliance-check">
+                    <div class="check-header">
+                        <span class="check-icon">✓</span>
+                        <h3>Workforce (WIOA)</h3>
+                        <span class="check-status status-pass">Passing</span>
+                    </div>
+                    <ul class="check-list">
+                        <li class="check-pass">✓ Eligibility documentation complete</li>
+                        <li class="check-pass">✓ Performance metrics tracked</li>
+                        <li class="check-pass">✓ Employment outcomes recorded</li>
+                        <li class="check-pass">✓ Retention milestones monitored</li>
+                    </ul>
+                    <div class="check-footer">
+                        Last checked: <span id="workforceCheckTime">1 minute ago</span>
+                    </div>
+                </div>
+
+                <div class="compliance-check">
+                    <div class="check-header">
+                        <span class="check-icon">✓</span>
+                        <h3>Security & Privacy</h3>
+                        <span class="check-status status-pass">Passing</span>
+                    </div>
+                    <ul class="check-list">
+                        <li class="check-pass">✓ Authentication secure (JWT)</li>
+                        <li class="check-pass">✓ Passwords hashed (bcrypt)</li>
+                        <li class="check-pass">✓ Rate limiting active</li>
+                        <li class="check-pass">✓ Audit trail logging enabled</li>
+                    </ul>
+                    <div class="check-footer">
+                        Last checked: <span id="securityCheckTime">30 seconds ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Demo Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Integration Example</h2>
+            <p class="section-description">See how easy it is to integrate the Magician Platform into your project</p>
+            
+            <div class="code-demo">
+                <div class="code-tabs">
+                    <button class="code-tab active" data-tab="enrollment">VR Enrollment</button>
+                    <button class="code-tab" data-tab="service">Record Service</button>
+                    <button class="code-tab" data-tab="milestone">Track Milestone</button>
+                    <button class="code-tab" data-tab="outcome">Employment Outcome</button>
+                </div>
+                
+                <div class="code-content">
+                    <pre class="code-block active" data-content="enrollment"><code>// Create VR Enrollment
+const enrollment = await fetch('/api/vr/enrollment', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${apiToken}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    userId: 'user-123',
+    vrAgency: 'State VR Agency',
+    vrCounselor: 'Jane Smith',
+    vrCounselorEmail: 'jane@vr.gov',
+    programType: 'self_employment',
+    currentPhase: 'assessment',
+    status: 'active'
+  })
+});
+
+const result = await enrollment.json();
+console.log('Enrollment created:', result.id);</code></pre>
+
+                    <pre class="code-block" data-content="service"><code>// Record VR Service
+const service = await fetch('/api/vr/services', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${apiToken}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    enrollmentId: 'enrollment-123',
+    serviceDate: new Date(),
+    serviceType: 'job_coaching',
+    serviceCost: 500.00,
+    serviceProvider: 'ABC Coaching Services',
+    serviceOutcome: 'Participant gained interview skills',
+    isCompliant: true,
+    regulationReference: '34 CFR 361.48',
+    approvedByVrCounselor: true
+  })
+});
+
+const serviceResult = await service.json();
+console.log('Service recorded:', serviceResult.id);</code></pre>
+
+                    <pre class="code-block" data-content="milestone"><code>// Track Milestone
+const milestone = await fetch('/api/vr/milestones', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${apiToken}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    enrollmentId: 'enrollment-123',
+    milestoneName: 'Complete job skills training',
+    targetDate: '2024-03-15',
+    status: 'in_progress',
+    verificationDoc: 'Training certificate uploaded'
+  })
+});
+
+// Update milestone status
+await fetch(`/api/vr/milestones/${milestone.id}`, {
+  method: 'PUT',
+  body: JSON.stringify({
+    status: 'completed',
+    completionDate: new Date()
+  })
+});</code></pre>
+
+                    <pre class="code-block" data-content="outcome"><code>// Record Employment Outcome
+const outcome = await fetch('/api/workforce/outcomes', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${apiToken}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    userId: 'user-123',
+    jobTitle: 'Software Developer',
+    employer: 'Tech Company Inc',
+    startDate: new Date(),
+    wagePerHour: 25.00,
+    hoursPerWeek: 40,
+    employmentType: 'full_time',
+    source: 'vr_placement',
+    accommodationsProvided: 'Remote work, flexible hours'
+  })
+});
+
+// Track retention milestones
+await fetch(`/api/workforce/outcomes/${outcome.id}/retention`, {
+  method: 'POST',
+  body: JSON.stringify({
+    retentionCheck90Day: true,
+    verificationDate: new Date()
+  })
+});</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="cta-box">
+                <h3>Ready to Integrate?</h3>
+                <p>Start using the Magician Platform's compliance system in your project today</p>
+                <a href="integration-guide.html" class="btn btn-primary">View Integration Guide</a>
+                <a href="https://github.com/MBTQ-dev/Magician_Platform" class="btn btn-secondary">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Magician Platform</h4>
+                    <p>Reusable compliance and workflow system</p>
+                    <p class="footer-tagline">Built with ❤️ for the deaf community</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform">GitHub</a></li>
+                        <li><a href="integration-guide.html">Integration Guide</a></li>
+                        <li><a href="compliance-dashboard.html">Dashboard Demo</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/issues">Report Issues</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/COMPLIANCE_GUIDE.md">Compliance Guide</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/DEPLOYMENT_GUIDE.md">Deployment</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/ACCESSIBILITY_STATEMENT.md">Accessibility</a></li>
+                        <li><a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/SECURITY_POLICY.md">Security</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Compliance</h4>
+                    <ul>
+                        <li>✓ WCAG 2.1 Level AA</li>
+                        <li>✓ 34 CFR Part 361</li>
+                        <li>✓ WIOA Aligned</li>
+                        <li>✓ Section 508</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 360 Magicians Platform. MIT License.</p>
+                <p>
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform">GitHub</a> •
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/LICENSE">License</a> •
+                    <a href="https://github.com/MBTQ-dev/Magician_Platform/blob/main/CONTRIBUTING.md">Contributing</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
