@@ -11,6 +11,12 @@ const router = Router();
 // Get all partner agencies
 router.get('/agencies', async (req, res) => {
   try {
+    if (!db) {
+      return res.status(500).json({
+        success: false,
+        error: "Database connection unavailable",
+      });
+    }
     const { agencyType, isActive } = req.query;
     
     const conditions = [];
