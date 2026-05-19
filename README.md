@@ -209,6 +209,35 @@ POST /api/webhooks/register
 
 See the **[Deployment Guide](./DEPLOYMENT_GUIDE.md)** for complete integration instructions.
 
+### 🔗 Related Repositories
+
+This platform is part of the 360 Magicians ecosystem:
+- **[github.com/pinkycollie/360-magicians](https://github.com/pinkycollie/360-magicians)** - 360 Magicians framework
+- **[github.com/pinkycollie/mbtq-dev](https://github.com/pinkycollie/mbtq-dev)** - MBTQ ecosystem
+- **[github.com/MBTQ-dev/Magician-Platform](https://github.com/MBTQ-dev/Magician-Platform)** - This repository
+-
+## 🚀 Production Ready Features
+
+### Automated Workflows
+- ✅ **Auto-merge** - Automated dependency updates with Dependabot
+- ✅ **Auto-test** - Continuous testing and quality checks
+- ✅ **Auto-update** - Weekly dependency updates
+- ✅ **Auto-deploy** - Production deployment automation
+- ✅ **Compliance checks** - Daily compliance audits
+- ✅ **Health monitoring** - Comprehensive health checks
+
+### Health Check Endpoints
+- `GET /api/health` - Comprehensive system health
+- `GET /api/health/live` - Liveness probe
+- `GET /api/health/ready` - Readiness probe
+
+### Development Tools
+- ✅ Type checking with TypeScript strict mode
+- ✅ Linting and formatting support
+- ✅ Automated testing framework
+- ✅ Build validation
+- ✅ Security scanning
+
 ## 🤖 360 Magicians - AI Agent Services
 
 ### Core Development Agents
@@ -330,7 +359,7 @@ The platform supports **dual runtime environments**:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/MBTQ-dev/MBTQ.dev.git
+   git clone https://github.com/MBTQ-dev/Magician-Platform.git
    cd MBTQ.dev
    ```
 
@@ -355,6 +384,66 @@ The platform supports **dual runtime environments**:
    npm run dev
    ```
 
+### Using Replit
+
+The project is optimized for Replit deployment:
+
+1. Import the repository into Replit
+2. Dependencies install automatically
+3. Configure secrets in Replit dashboard
+4. Click "Run" to start
+
+### Using Docker
+
+```bash
+docker-compose up -d
+```
+
+Visit http://localhost:8080 to see the application.
+
+## 🛠️ Development Commands
+
+```bash
+# Development
+npm run dev              # Start development server
+npm run build            # Build for production
+npm run start            # Start production server
+
+# Quality Checks
+npm run typecheck        # Run TypeScript type checking
+npm run lint             # Run linting
+npm run lint:fix         # Fix linting issues
+npm run format           # Format code with Prettier
+npm run format:check     # Check code formatting
+npm run validate         # Run all validation (typecheck + lint + test)
+
+# Testing
+npm test                 # Run all tests
+npm run test:unit        # Run unit tests
+npm run test:integration # Run integration tests
+npm run test:coverage    # Generate coverage report
+
+# Database
+npm run db:push          # Push schema to database
+npm run db:generate      # Generate migrations
+npm run db:migrate       # Run migrations
+npm run db:studio        # Open Drizzle Studio
+npm run db:check         # Check schema
+
+# Maintenance
+npm run clean            # Clean build artifacts
+```
+
+## 📚 Documentation
+
+- **[GITHUB-PRINCIPLES.md](./GITHUB-PRINCIPLES.md)** - GitHub principles and standardized procedures
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contribution guidelines
+- **[COMPLIANCE-DOCUMENTATION.md](./COMPLIANCE-DOCUMENTATION.md)** - VR and workforce compliance standards
+- **[Magician Services](./server/services/magicians/README.md)** - Detailed Magician capabilities
+- **[Implementation Summary](./IMPLEMENTATION_SUMMARY.md)** - Technical implementation details
+- **[Platform Integration](./PLATFORM-INTEGRATION-SUMMARY.md)** - Integration guide
+- **[Audit Summary](./AUDIT-SUMMARY.md)** - Comprehensive audit results
+- **[API Routes](./API_ROUTES.md)** - API documentation
 ### Deno + Fresh Application (Optional)
 
 The platform includes an optional Deno-based Fresh framework application in the `/deno-app` directory that can run alongside the main Node.js application.
@@ -575,14 +664,57 @@ npm run lint
 
 ## 📦 Deployment
 
+### Replit Deployment (Automated)
+
+Deployment to Replit is automated:
+
+1. Push to `main` branch
+2. Replit auto-deploys from GitHub
+3. Monitor deployment in Replit console
+4. Verify health: `GET /api/health`
+
+Configuration files:
+- `.replit` - Replit configuration
+- `replit.nix` - Nix dependencies
+
 ### Vercel Deployment
 
 ```bash
 # Install Vercel CLI
 npm install -g vercel
 
-# Deploy
+# Deploy to production
 vercel deploy --prod
+
+# Or use GitHub integration (automatic)
+```
+
+### Docker Deployment
+
+```bash
+# Build image
+docker build -t magician-platform .
+
+# Run container
+docker run -p 5000:5000 --env-file .env magician-platform
+
+# Or use docker-compose
+docker-compose up -d
+```
+
+### Health Monitoring
+
+After deployment, verify system health:
+
+```bash
+# Comprehensive health check
+curl https://your-domain.com/api/health
+
+# Liveness probe
+curl https://your-domain.com/api/health/live
+
+# Readiness probe
+curl https://your-domain.com/api/health/ready
 ```
 
 ### Environment Variables
@@ -596,30 +728,53 @@ SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
 # AI Services
-OPENAI_API_KEY=sk-...
-ANTHROPIC_API_KEY=sk-ant-...
+AI-SDK
 
 # Authentication
 JWT_SECRET=...
 
 # Environment
 NODE_ENV=production
+PORT=5000
+
+# Optional Services
+SLACK_TOKEN=xoxb-...
+NOTION_API_KEY=secret_...
+STRIPE_SECRET_KEY=sk_...
 ```
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
+
+### Quick Contribution Guide
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Make your changes with clear commits
+4. Ensure all tests pass: `npm run validate`
+5. Push and open a Pull Request
 
 ### Development Workflow
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Ensure all tests pass
-6. Submit a pull request
+- Use conventional commits (e.g., `feat:`, `fix:`, `docs:`)
+- Ensure TypeScript strict mode compliance
+- Add tests for new features
+- Update documentation
+- Follow accessibility standards (WCAG 2.1 AA)
+- Maintain VR compliance for related features
+
+### Code Standards
+
+- **TypeScript**: Strict mode, no `any` types
+- **React**: Functional components with hooks
+- **Accessibility**: WCAG 2.1 Level AA compliance
+- **Testing**: >80% code coverage goal
+- **Security**: No secrets in code, use environment variables
+
+For detailed standards, see [GITHUB-PRINCIPLES.md](./GITHUB-PRINCIPLES.md).
 
 ---
 

@@ -17,7 +17,14 @@
     "db:seed:user-interests": "tsx scripts/seed-user-interests.ts",
     "lint": "echo 'Add your linting configuration here'",
     "typecheck": "tsc --noEmit",
-    "test": "echo 'Add your testing command here'"
+    "test": "echo '⚠ Testing framework not yet configured - add Jest or Vitest' && exit 0",
+    "test:unit": "echo '⚠ Unit tests not configured' && exit 0",
+    "test:integration": "echo '⚠ Integration tests not configured' && exit 0",
+    "test:e2e": "echo '⚠ E2E tests not configured' && exit 0",
+    "test:coverage": "echo '⚠ Test coverage not configured' && exit 0",
+    "validate": "npm run typecheck && npm run lint && npm run test",
+    "clean": "rm -rf dist node_modules/.cache",
+    "prebuild": "npm run clean"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.37.0",
