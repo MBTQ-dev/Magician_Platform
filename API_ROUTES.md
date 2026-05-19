@@ -2,8 +2,7 @@
 
 ## Base URL
 Development: `http://localhost:5000`
-Production: `https://your-domain.com`
-
+Production: `https://360magicians.com
 ## Core Routes
 
 ### Health & Status

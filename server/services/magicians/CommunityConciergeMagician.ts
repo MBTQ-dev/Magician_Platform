@@ -279,7 +279,7 @@ export class CommunityConciergeMagician extends BaseMagician {
       }
 
       const userScore = await fibonroseService.getFibonroseScore(context.userId);
-      const { interests = [], experienceLevel = 'beginner' } = params;
+      const { interests = [] } = params;
 
       // In production, this would query mentor database
       const mockMentors = [
