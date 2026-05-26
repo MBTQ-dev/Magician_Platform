@@ -15,7 +15,8 @@ import {
   Map,
   Library,
   BookMarked,
-  Building
+  Building,
+  Heart
 } from 'lucide-react';
 
 // Import our components
@@ -27,6 +28,7 @@ import ProfilePage from '@/pages/profile-page';
 import TechLeadershipResources from '@/components/resources/TechLeadershipResources';
 import JourneyTrackerPage from '@/pages/journey-tracker-page';
 import ResourceLibraryPage from '@/pages/resource-library-page';
+import AgencyPartnershipDashboard from '@/components/partnerships/AgencyPartnershipDashboard';
 
 // Business Pathway Pages
 import BusinessPathwayPage from '@/pages/pathways/business';
@@ -99,6 +101,13 @@ export default function App() {
               active={location === '/team-builder'} 
             />
             <NavItem 
+              to="/partnerships" 
+              icon={<Heart className="h-5 w-5" />} 
+              text="Agency Partnerships" 
+              collapsed={navCollapsed} 
+              active={location === '/partnerships'} 
+            />
+            <NavItem 
               to="/profile" 
               icon={<UserIcon className="h-5 w-5" />} 
               text="My Profile" 
@@ -168,6 +177,7 @@ export default function App() {
           <Route path="/vr4deaf" component={VR4DeafDashboard} />
           <Route path="/job-support" component={JobSupportDashboard} />
           <Route path="/team-builder" component={StartupTeamBuilder} />
+          <Route path="/partnerships" component={AgencyPartnershipDashboard} />
           <Route path="/settings" component={SettingsScreen} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/profile/:username" component={ProfilePage} />
@@ -295,6 +305,34 @@ function HomeScreen() {
               <ChevronRight className="h-4 w-4 ml-1" />
             </a>
           </Link>
+        </div>
+      </div>
+      
+      <div className="mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl shadow-lg p-6 border border-pink-200">
+        <div className="flex items-center gap-3 mb-4">
+          <Heart className="h-8 w-8 text-pink-600" />
+          <h2 className="text-2xl font-semibold">Agency Partnerships</h2>
+          <Badge className="bg-gradient-to-r from-pink-500 to-purple-600 text-white">NEW</Badge>
+        </div>
+        <p className="text-slate-700 mb-4">
+          MBTQ.dev partners with LGBTQIA and disability service agencies worldwide to provide 
+          comprehensive VR and workforce services. Register your agency or refer clients to 
+          access specialized support, PinkSync ASL services, and inclusive business development programs.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <Link href="/partnerships">
+            <a className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-medium hover:from-pink-600 hover:to-purple-700">
+              Agency Partnership Portal
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </a>
+          </Link>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Badge variant="outline" className="text-xs">LGBTQIA+ Support</Badge>
+          <Badge variant="outline" className="text-xs">Disability Services</Badge>
+          <Badge variant="outline" className="text-xs">VR Partnerships</Badge>
+          <Badge variant="outline" className="text-xs">Workforce Development</Badge>
+          <Badge variant="outline" className="text-xs">Global Network</Badge>
         </div>
       </div>
       

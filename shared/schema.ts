@@ -183,9 +183,137 @@ export const insertUserCounselorSchema = createInsertSchema(userCounselors).pick
   status: true,
 });
 
+// Partner Agencies for LGBTQIA and Disability Services
+export const partnerAgencies = pgTable("partner_agencies", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  agencyType: text("agency_type").notNull(), // lgbtqia, disability, workforce, mixed
+  description: text("description"),
+  contactName: text("contact_name").notNull(),
+  contactEmail: text("contact_email").notNull().unique(),
+  contactPhone: text("contact_phone"),
+  address: text("address"),
+  city: text("city"),
+  state: text("state"),
+  zipCode: text("zip_code"),
+  website: text("website"),
+  servicesOffered: text("services_offered").array(),
+  specializations: text("specializations").array(), // e.g., ["deaf", "lgbtqia", "veteran", "disabled"]
+  isActive: boolean("is_active").default(true),
+  partnershipLevel: text("partnership_level").default("standard"), // standard, premium, enterprise
+  partnerSince: timestamp("partner_since").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertPartnerAgencySchema = createInsertSchema(partnerAgencies).pick({
+  name: true,
+  agencyType: true,
+  description: true,
+  contactName: true,
+  contactEmail: true,
+  contactPhone: true,
+  address: true,
+  city: true,
+  state: true,
+  zipCode: true,
+  website: true,
+  servicesOffered: true,
+  specializations: true,
+  isActive: true,
+  partnershipLevel: true,
+});
+
+// Agency Clients - clients referred by partner agencies
+export const agencyClients = pgTable("agency_clients", {
+  id: serial("id").primaryKey(),
+  agencyId: integer("agency_id").notNull().references(() => partnerAgencies.id),
+  userId: integer("user_id").notNull().references(() => users.id),
+  clientName: text("client_name").notNull(),
+  clientEmail: text("client_email").notNull(),
+  clientPhone: text("client_phone"),
+  specialNeeds: text("special_needs").array(), // specific accessibility or support requirements
+  referralReason: text("referral_reason"),
+  referralDate: timestamp("referral_date").defaultNow(),
+  status: text("status").default("active"), // active, completed, inactive, transferred
+  assignedCounselorId: integer("assigned_counselor_id").references(() => vrCounselors.id),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertAgencyClientSchema = createInsertSchema(agencyClients).pick({
+  agencyId: true,
+  userId: true,
+  clientName: true,
+  clientEmail: true,
+  clientPhone: true,
+  specialNeeds: true,
+  referralReason: true,
+  status: true,
+  assignedCounselorId: true,
+  notes: true,
+});
+
+// Agency Services - track services provided to agency clients
+export const agencyServices = pgTable("agency_services", {
+  id: serial("id").primaryKey(),
+  agencyClientId: integer("agency_client_id").notNull().references(() => agencyClients.id),
+  serviceType: text("service_type").notNull(), // vr, workforce, business_formation, etc.
+  serviceName: text("service_name").notNull(),
+  serviceDescription: text("service_description"),
+  status: text("status").default("pending"), // pending, in_progress, completed, cancelled
+  startDate: timestamp("start_date"),
+  completionDate: timestamp("completion_date"),
+  outcome: text("outcome"),
+  feedback: text("feedback"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertAgencyServiceSchema = createInsertSchema(agencyServices).pick({
+  agencyClientId: true,
+  serviceType: true,
+  serviceName: true,
+  serviceDescription: true,
+  status: true,
+  startDate: true,
+  completionDate: true,
+  outcome: true,
+  feedback: true,
+});
+
+// Update schemas - only allow specific fields to be updated
+export const updatePartnerAgencySchema = insertPartnerAgencySchema.partial().omit({
+  // Omit fields that should never be updated by clients
+});
+
+export const updateAgencyClientSchema = insertAgencyClientSchema.partial().omit({
+  agencyId: true, // Agency cannot be changed after creation
+  userId: true, // User cannot be changed after creation
+});
+
+export const updateAgencyServiceSchema = insertAgencyServiceSchema.partial().omit({
+  agencyClientId: true, // Client cannot be changed after creation
+});
+
+// Schema for assigning counselor to client
+export const assignCounselorSchema = z.object({
+  counselorId: z.number().int().positive()
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
+
+export type PartnerAgency = typeof partnerAgencies.$inferSelect;
+export type InsertPartnerAgency = z.infer<typeof insertPartnerAgencySchema>;
+
+export type AgencyClient = typeof agencyClients.$inferSelect;
+export type InsertAgencyClient = z.infer<typeof insertAgencyClientSchema>;
+
+export type AgencyService = typeof agencyServices.$inferSelect;
+export type InsertAgencyService = z.infer<typeof insertAgencyServiceSchema>;
 
 export type LifecyclePhase = typeof lifecyclePhases.$inferSelect;
 export type InsertLifecyclePhase = z.infer<typeof insertLifecyclePhaseSchema>;
