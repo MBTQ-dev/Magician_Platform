@@ -20,6 +20,10 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
+  actions: write
+  models: read, write, 
+  artifact-metadata:  write
 
 jobs:
   agent-health-check:
@@ -27,6 +31,17 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      attestations:  read
+      checks:  read 
+      id-token:  write
+      actions:  read
+      vulnerability-alerts: read
+      code-quality: read
+      security-events: read
+      artifact-metadata: write
+      statuses: write
+      deployments: write
+      
     if: github.event.inputs.operation == 'health_check' || github.event.inputs.operation == ''
     
     steps:
@@ -36,7 +51,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       
       - name: Install dependencies
@@ -127,7 +142,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       
       - name: Install dependencies
@@ -223,7 +238,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       
       - name: Install dependencies
@@ -302,9 +317,13 @@ jobs:
   operator-coordination:
     name: Operator Coordination Check
     runs-on: ubuntu-latest
-    permissions:
+    permissions: 
       contents: read
-    
+      
+    strategy:
+       fail-fast: false
+      
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -337,7 +356,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    
+      artifact-metadata:  write
+      packages:  read
     steps:
       - name: Collect platform metrics
         run: |
