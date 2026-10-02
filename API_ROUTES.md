@@ -97,6 +97,54 @@ Production: `https://360magicians.com
 ### ASL Dictionary
 - `GET /api/asl-dictionary` - Get ASL dictionary terms
   - Query: `?category=string&importance=string&tags=string[]&searchTerm=string`
+
+## Agency Partnerships
+
+### Partner Agencies
+- `GET /api/agency-partnerships/agencies` - Get all partner agencies
+  - Query: `?agencyType=string&isActive=boolean`
+  - Response: `{ success: boolean, data: PartnerAgency[] }`
+- `GET /api/agency-partnerships/agencies/:id` - Get specific partner agency
+  - Response: `{ success: boolean, data: PartnerAgency }`
+- `POST /api/agency-partnerships/agencies` - Register new partner agency
+  - Body: `{ name, agencyType, description?, contactName, contactEmail, contactPhone?, address?, city?, state?, zipCode?, website?, servicesOffered?, specializations?, partnershipLevel? }`
+  - Response: `{ success: boolean, data: PartnerAgency, message: string }`
+- `PUT /api/agency-partnerships/agencies/:id` - Update partner agency
+  - Body: Any agency fields to update
+  - Response: `{ success: boolean, data: PartnerAgency, message: string }`
+
+### Agency Clients
+- `GET /api/agency-partnerships/agencies/:agencyId/clients` - Get all clients for an agency
+  - Query: `?status=string`
+  - Response: `{ success: boolean, data: Array<{ client, user, counselor }> }`
+- `GET /api/agency-partnerships/clients/:id` - Get specific client details
+  - Response: `{ success: boolean, data: { client, agency, user, counselor } }`
+- `POST /api/agency-partnerships/agencies/:agencyId/clients` - Create new client referral
+  - Body: `{ userId, clientName, clientEmail, clientPhone?, specialNeeds?, referralReason?, assignedCounselorId?, notes? }`
+  - Response: `{ success: boolean, data: AgencyClient, message: string }`
+- `PUT /api/agency-partnerships/clients/:id` - Update client information
+  - Body: Any client fields to update
+  - Response: `{ success: boolean, data: AgencyClient, message: string }`
+- `POST /api/agency-partnerships/clients/:id/assign-counselor` - Assign VR counselor to client
+  - Body: `{ counselorId: number }`
+  - Response: `{ success: boolean, data: AgencyClient, message: string }`
+
+### Agency Services
+- `GET /api/agency-partnerships/clients/:clientId/services` - Get all services for a client
+  - Query: `?status=string`
+  - Response: `{ success: boolean, data: AgencyService[] }`
+- `POST /api/agency-partnerships/clients/:clientId/services` - Create new service for client
+  - Body: `{ serviceType, serviceName, serviceDescription?, status?, startDate?, outcome?, feedback? }`
+  - Response: `{ success: boolean, data: AgencyService, message: string }`
+- `PUT /api/agency-partnerships/services/:id` - Update service status
+  - Body: `{ status?, completionDate?, outcome?, feedback? }`
+  - Response: `{ success: boolean, data: AgencyService, message: string }`
+
+### Dashboard & Analytics
+- `GET /api/agency-partnerships/agencies/:agencyId/dashboard` - Get agency dashboard statistics
+  - Response: `{ success: boolean, data: { totalClients, activeClients, completedClients, totalServices, pendingServices, inProgressServices, completedServices, recentReferrals } }`
+- `GET /api/agency-partnerships/dashboard/statistics` - Get overall platform statistics
+  - Response: `{ success: boolean, data: { totalPartnerAgencies, activeAgencies, agenciesByType, totalClients, activeClients, totalServices, completedServices } }`
 - `GET /api/asl-dictionary/term/:name` - Get term by name
 - `GET /api/asl-dictionary/:id` - Get term by ID
 - `POST /api/asl-dictionary` - Create dictionary term
