@@ -86,11 +86,24 @@ export class VRCounselorMatchingService {
       // Uses word boundary matching to avoid false positives (e.g., "CA" matching "CALIFORNIA" but not "CARDIAC")
       const locationLower = preferences.location.toLowerCase().trim();
       const orgLower = counselor.organization.toLowerCase();
+
+      if (locationLower.length > 0) {
+        // Escape regex metacharacters so user input can't produce an invalid
+        // RegExp (which would throw) or alter matching semantics.
+        const escapedLocation = locationLower.replace(/[.*+?^${}()|[\]\\]/g, '\\      const locationLower = preferences.location.toLowerCase().trim();
+      const orgLower = counselor.organization.toLowerCase();
       const locationRegex = new RegExp(`\\b${locationLower}\\b`, 'i');
       
       if (locationRegex.test(orgLower) || orgLower.includes(locationLower)) {
         score += 20;
         reasons.push("Located in your area");
+      }');
+        const locationRegex = new RegExp(`\\b${escapedLocation}\\b`, 'i');
+
+        if (locationRegex.test(orgLower) || orgLower.includes(locationLower)) {
+          score += 20;
+          reasons.push("Located in your area");
+        }
       }
 
       // ASL proficiency (if user prefers ASL)
