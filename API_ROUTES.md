@@ -1,8 +1,8 @@
 # API Routes Documentation
 
 ## Base URL
-Development: `http://localhost:5000`
-Production: `https://360magicians.com
+Development: `http://vr4deaf.mbtq.dev:5000`
+Production: `https://vr4deaf.org
 ## Core Routes
 
 ### Health & Status
