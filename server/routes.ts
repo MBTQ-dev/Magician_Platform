@@ -26,6 +26,7 @@ import businessFormationRoutes from "./routes/businessFormationRoutes";
 import startupTeamBuilderRoutes from "./routes/startupTeamBuilderRoutes";
 import profileRoutes from "./routes/profileRoutes";
 import magiciansRoutes from "./routes/magiciansRoutes";
+import agencyPartnershipRoutes from "./routes/agencyPartnershipRoutes";
 import { initializeRealtimeTranslation } from "./services/realtimeTranslation";
 
 // Validation error handling
@@ -50,6 +51,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/startup-team', startupTeamBuilderRoutes);
   app.use('/api/profile', profileRoutes);
   app.use('/api/magicians', magiciansRoutes);
+  app.use('/api/agency-partnerships', agencyPartnershipRoutes);
   
   // Register the new unified AI controller
   app.use('/api/v1/ai', aiControllerRoutes);
