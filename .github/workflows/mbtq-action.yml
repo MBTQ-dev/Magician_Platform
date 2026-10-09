@@ -1,5 +1,7 @@
-# In your .github/workflows/
 - uses: MBTQ-dev/mbtq-action@v1
   with:
     check-type: 'full-stack-review'
     accessibility-audit: true
+  permissions:
+    - defaults:
+      
