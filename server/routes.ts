@@ -26,6 +26,7 @@ import businessFormationRoutes from "./routes/businessFormationRoutes";
 import startupTeamBuilderRoutes from "./routes/startupTeamBuilderRoutes";
 import profileRoutes from "./routes/profileRoutes";
 import magiciansRoutes from "./routes/magiciansRoutes";
+import healthRoutes from "./routes/health";
 import { initializeRealtimeTranslation } from "./services/realtimeTranslation";
 
 // Validation error handling
@@ -40,6 +41,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   console.log("WebSocket initialization deferred for better startup performance");
   
   // Register API routes
+  app.use('/api/health', healthRoutes);
   app.use('/api/storage', storageRoutes);
   app.use('/api/pipeline', pipelineRoutes);
   app.use('/api/claude', anthropicRoutes);
@@ -53,11 +55,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Register the new unified AI controller
   app.use('/api/v1/ai', aiControllerRoutes);
-
-  // Base API route
-  app.get("/api/health", (_req, res) => {
-    res.json({ status: "ok" });
-  });
 
   // User routes
   app.post("/api/users", async (req, res) => {
