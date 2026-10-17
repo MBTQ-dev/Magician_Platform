@@ -8,7 +8,7 @@
 
 ![MBTQ.dev Platform](https://mbtq.dev)
 
-[![Open Source](https://img.shields.io/badge/Open%20Source-💜-purple)](https://github.com/MBTQ-dev)
+[![Supabase Database Migrations](https://github.com/MBTQ-dev/Magician_Platform/actions/workflows/supabase-migrations.yml/badge.svg)](https://github.com/MBTQ-dev/Magician_Platform/actions/workflows/supabase-migrations.yml)
 [![Deaf Friendly](https://img.shields.io/badge/🦻%20Deaf-Friendly-yellow)](./ACCESSIBILITY_STATEMENT.md)
 [![AI Powered](https://img.shields.io/badge/AI-Powered-green)](./docs/index.html)
 [![LGBTQ+ Friendly](https://img.shields.io/badge/🏳️‍🌈%20LGBTQ%2B-Friendly-rainbow)](https://mbtq.dev)
