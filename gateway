@@ -1,32 +1,56 @@
-import express from 'express';
-import jwt from 'jsonwebtoken';
-import fetch from 'node-fetch';
+import { serve } from "https://deno.land/std@0.192.0/http/server.ts";
 
-const app = express();
-const PORT = process.env.PORT || 8080;
-const SERVICE_AUTH_SECRET = process.env.SERVICE_AUTH_SECRET;
-const GO_SERVICE_URL = process.env.GO_SERVICE_URL; // e.g. https://deafauth-xyz.a.run.app
+const port = 8000;
 
-app.get('/api/deafauth', async (req, res) => {
-  try {
-    // 1. Create a short-lived JWT
-    const token = jwt.sign(
-      { service: 'gateway', timestamp: Date.now() },
-      SERVICE_AUTH_SECRET,
-      { expiresIn: '60s' }
-    );
+const handler = async (request: Request): Response => {
+  const url = new URL(request.url);
+  const path = url.pathname;
 
-    // 2. Call the Go microservice securely
-    const response = await fetch(`${GO_SERVICE_URL}/verify`, {
-      headers: { Authorization: `Bearer ${token}` },
+  if (path === "/health") {
+    return new Response(JSON.stringify({ status: "ok", service: "deno-api" }), {
+      headers: { "content-type": "application/json" },
     });
-
-    const data = await response.json();
-    res.json({ from: 'gateway', goResponse: data });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Gateway communication failed' });
   }
-});
 
-app.listen(PORT, () => console.log(`Gateway running on port ${PORT}`));
+  // Proxy to microservices
+  if (path.startsWith("/api/auth")) {
+    return await fetch(`http://deafauth:3001${path.replace("/api/auth", "")}`, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body,
+    });
+  }
+
+  if (path.startsWith("/api/sync")) {
+    return await fetch(`http://pinksync:3002${path.replace("/api/sync", "")}`, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body,
+    });
+  }
+
+  if (path.startsWith("/api/a11y")) {
+    return await fetch(`http://accessibility:3003${path.replace("/api/a11y", "")}`, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body,
+    });
+  }
+
+  const body = JSON.stringify({
+    service: "deno-api",
+    status: "online",
+    message: "Welcome to the MBTQ Universe Gateway",
+    endpoints: ["/api/auth", "/api/sync", "/api/a11y"]
+  });
+
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+};
+
+console.log(`Deno API listening at http://localhost:${port}`);
+serve(handler, { port });
