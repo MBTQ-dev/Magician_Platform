@@ -391,7 +391,9 @@ router.get('/status', optionalAuth, (req: AuthenticatedRequest, res: Response) =
       isDeaf: req.user.isDeaf,
       preferASL: req.user.preferASL,
     } : null,
-    supabaseConfigured: deafAuthService.hasSupabaseConfig(),
+    supabaseConfigured: typeof deafAuthService?.hasSupabaseConfig === 'function' 
+      ? deafAuthService.hasSupabaseConfig() 
+      : false,
   });
 });
 
