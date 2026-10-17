@@ -6,8 +6,6 @@
 
 **VR Agency • Deaf Community • LGBTQ+ Agency Compliant**
 
-![MBTQ.dev Platform](https://mbtq.dev)
-
 [![Supabase Database Migrations](https://github.com/MBTQ-dev/Magician_Platform/actions/workflows/supabase-migrations.yml/badge.svg)](https://github.com/MBTQ-dev/Magician_Platform/actions/workflows/supabase-migrations.yml)
 [![Deaf Friendly](https://img.shields.io/badge/🦻%20Deaf-Friendly-yellow)](./ACCESSIBILITY_STATEMENT.md)
 [![AI Powered](https://img.shields.io/badge/AI-Powered-green)](./docs/index.html)
