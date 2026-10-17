@@ -324,9 +324,9 @@ class SupabaseService {
   /**
    * Subscribe to real-time changes on a table
    */
-  subscribeToTable(
+  subscribeToTable<T>(
     table: string,
-    callback: (payload: any) => void,
+    callback: (payload: { eventType: string; new: T; old: T }) => void,
     filter?: { column: string; value: string }
   ): { unsubscribe: () => void } {
     this.ensureInitialized();
