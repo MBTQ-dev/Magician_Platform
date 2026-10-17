@@ -298,6 +298,14 @@ router.post('/forgot-password', authRateLimiter, async (req: Request, res: Respo
       return;
     }
 
+    if (!deafAuthService || typeof deafAuthService.requestPasswordReset !== "function") {
+      res.status(500).json({
+        success: false,
+        message: 'Password reset service unavailable',
+      });
+      return;
+    }
+
     await deafAuthService.requestPasswordReset(email);
 
     // Always return success to prevent email enumeration
